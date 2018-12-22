@@ -29,7 +29,6 @@ public class MyBaseApplication extends Application{
         if (BuildConfig.DEBUG) {
             Stetho.initializeWithDefaults(this);
         }
-
     }
 
     public Context getContext() {
