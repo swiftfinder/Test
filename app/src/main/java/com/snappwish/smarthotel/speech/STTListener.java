@@ -10,10 +10,10 @@ public interface STTListener {
      * stt success
      * @param content
      */
-    void SttSuccess(String content);
+    void sttSuccess(String content);
 
     /**
      * stt failed
      */
-    void SttFailed();
+    void sttFailed();
 }

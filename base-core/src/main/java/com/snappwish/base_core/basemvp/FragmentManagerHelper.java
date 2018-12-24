@@ -6,6 +6,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
+import com.snappwish.base_core.R;
+
 import java.util.List;
 
 /**
@@ -24,6 +26,7 @@ public class FragmentManagerHelper {
 
     public void addFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+        fragmentTransaction.setCustomAnimations(R.animator.scalex_enter, R.animator.scalex_exit);
         fragmentTransaction.add(mContainerViewId, fragment);
         fragmentTransaction.commit();
     }
@@ -37,6 +40,7 @@ public class FragmentManagerHelper {
             fragmentTransaction.hide(tempFragment);
         }
 
+        fragmentTransaction.setCustomAnimations(R.animator.scalex_enter, R.animator.scalex_exit);
         // 判断容器中是否存在当前fragment
         if (fragments.contains(fragment)) {
             fragmentTransaction.show(fragment);

@@ -3,13 +3,16 @@ package com.snappwish.smarthotel.speech;
 import android.content.Context;
 import android.util.Log;
 
+import com.iflytek.cloud.SpeechConstant;
+import com.iflytek.cloud.SpeechUtility;
+
 /**
  * @author lishibo
  * @date 2018/12/22
  * email : andy_li@swift365.com.cn
  */
 public class RobotManager {
-    private final String TAG = getClass().getSimpleName();
+    private static final String TAG = "RobotManager";
 
     private static RobotManager sRobotManager = null;
 
@@ -20,6 +23,10 @@ public class RobotManager {
         return sRobotManager;
     }
 
+    public void init(Context context) {
+        SpeechUtility.createUtility(context, SpeechConstant.APPID + SpeechConfig.IFLYTEK_ID);
+        initTTSEngine(context);
+    }
 
     private STTEngine mSTTEngine = null;
 
@@ -32,7 +39,6 @@ public class RobotManager {
         mSTTEngine = new STTEngine(context);
     }
 
-
     /**
      * init tts engine
      *
@@ -40,6 +46,8 @@ public class RobotManager {
      */
     public void initTTSEngine(Context context) {
         mTTSEngine = new TTSEngine(context);
+        RobotManager.getInstance().setVoiceState(true);
+        RobotManager.getInstance().setVoiceType("xiaoyan");
     }
 
     public void startRecognizing(STTListener sttListener) {

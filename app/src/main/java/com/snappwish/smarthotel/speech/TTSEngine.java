@@ -16,13 +16,10 @@ import com.iflytek.cloud.SynthesizerListener;
  */
 public class TTSEngine {
     SpeechSynthesizer mTts;
-    Context mContext;
     boolean mVoiceSwitch = true;
 
     public TTSEngine(Context context) {
-        mContext = context;
-        SpeechUtility.createUtility(context, SpeechConstant.APPID + SpeechConfig.IFLYTEK_ID);
-        mTts = SpeechSynthesizer.createSynthesizer(mContext, null);
+        mTts = SpeechSynthesizer.createSynthesizer(context, null);
         mTts.setParameter(SpeechConstant.ENGINE_TYPE, SpeechConstant.TYPE_CLOUD);
         mTts.setParameter(SpeechConstant.SPEED, "50");
         mTts.setParameter(SpeechConstant.VOLUME, "50");
@@ -49,6 +46,10 @@ public class TTSEngine {
      */
     public void stopSpeaking() {
         mTts.stopSpeaking();
+    }
+
+    public void destroy() {
+        mTts.destroy();
     }
 
     /**

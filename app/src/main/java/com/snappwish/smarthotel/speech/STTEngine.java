@@ -3,6 +3,8 @@ package com.snappwish.smarthotel.speech;
 import android.content.Context;
 import android.util.Log;
 
+import com.iflytek.cloud.ErrorCode;
+import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
@@ -19,11 +21,19 @@ public class STTEngine {
     private RecognizerDialog iatDialog;
 
     public STTEngine(Context context) {
-        SpeechUtility.createUtility(context, SpeechConstant.APPID + SpeechConfig.IFLYTEK_ID);
-
-        iatDialog = new RecognizerDialog(context, null);
-//        iatDialog.setParameter(SpeechConstant.LANGUAGE, "zh_cn");
+        iatDialog = new RecognizerDialog(context, mInitListener);
+        //        iatDialog.setParameter(SpeechConstant.LANGUAGE, "zh_cn");
     }
+
+    private InitListener mInitListener = new InitListener() {
+        @Override
+        public void onInit(int code) {
+
+            if (code != ErrorCode.SUCCESS) {
+                Log.e("STTEngine", "初始化失败，错误码：" + code);
+            }
+        }
+    };
 
     public void startRecognizing(final STTListener sttListener) {
         iatDialog.setListener(new RecognizerDialogListener() {
@@ -34,14 +44,14 @@ public class STTEngine {
                 Log.i("STTEngine", "stt result = " + recognizerResult.getResultString());
                 text += JsonParser.parseIatResult(recognizerResult.getResultString());
                 if (complete) {
-                    sttListener.SttSuccess(text);
+                    sttListener.sttSuccess(text);
                 }
                 Log.e("STTEngine", text);
             }
 
             @Override
             public void onError(SpeechError speechError) {
-                sttListener.SttFailed();
+                sttListener.sttFailed();
             }
         });
         iatDialog.show();

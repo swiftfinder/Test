@@ -1,10 +1,11 @@
 package com.snappwish.smarthotel;
 
-import android.Manifest;
 import android.support.annotation.NonNull;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.snappwish.base_core.basemvp.FragmentManagerHelper;
 import com.snappwish.base_core.permission.PermissionFailure;
 import com.snappwish.base_core.permission.PermissionHelper;
 import com.snappwish.base_core.permission.PermissionSuccess;
@@ -27,7 +28,13 @@ public class MainActivity extends MyBaseActivity implements STTListener {
     Button btnSpeaker;
     @BindView(R.id.tv_content)
     TextView tvContent;
+    @BindView(R.id.fragment)
+    FrameLayout fragment;
+
     private static final int PERMISSION_RECORD = 100;
+    private FragmentManagerHelper fragmentHelper;
+    private WelcomeFragment welcomeFragment;
+    private MainFragment mainFragment;
 
 
     @Override
@@ -42,14 +49,13 @@ public class MainActivity extends MyBaseActivity implements STTListener {
 
     @Override
     protected void initView() {
-        RobotManager.getInstance().initSTTEngine(this);
-        RobotManager.getInstance().initTTSEngine(this);
-
+        fragmentHelper = new FragmentManagerHelper(getSupportFragmentManager(), R.id.fragment);
     }
 
     @Override
     protected void initData() {
-
+        RobotManager.getInstance().initSTTEngine(this);
+        chooseFragment(Constant.FRAGMENT_WELCOME);
     }
 
     @Override
@@ -59,11 +65,11 @@ public class MainActivity extends MyBaseActivity implements STTListener {
 
     @OnClick(R.id.btn_speaker)
     public void onSTTClick() {
-        PermissionHelper.with(this)
-                .requestCode(PERMISSION_RECORD)
-                .permissions(Manifest.permission.RECORD_AUDIO)
-                .request();
-
+//        PermissionHelper.with(this)
+//                .requestCode(PERMISSION_RECORD)
+//                .permissions(Manifest.permission.RECORD_AUDIO)
+//                .request();
+        chooseFragment(Constant.FRAGMENT_MAIN);
     }
 
 
@@ -84,15 +90,26 @@ public class MainActivity extends MyBaseActivity implements STTListener {
 
 
     @Override
-    public void SttSuccess(String content) {
+    public void sttSuccess(String content) {
         tvContent.setText(content);
-        RobotManager.getInstance().setVoiceState(true);
-        RobotManager.getInstance().setVoiceType("xiaoyan");
         RobotManager.getInstance().startSpeaking(content);
     }
 
     @Override
-    public void SttFailed() {
+    public void sttFailed() {
 
+    }
+
+    private void chooseFragment(String itemTitle) {
+        switch (itemTitle) {
+            case Constant.FRAGMENT_WELCOME:
+                if (welcomeFragment == null) welcomeFragment = WelcomeFragment.newInstance();
+                fragmentHelper.switchFragment(welcomeFragment);
+                break;
+            case Constant.FRAGMENT_MAIN:
+                if (mainFragment == null) mainFragment = MainFragment.newInstance();
+                fragmentHelper.switchFragment(mainFragment);
+                break;
+        }
     }
 }
