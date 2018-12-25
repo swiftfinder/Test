@@ -35,6 +35,10 @@ public class MainActivity extends MyBaseActivity implements STTListener {
     private FragmentManagerHelper fragmentHelper;
     private WelcomeFragment welcomeFragment;
     private MainFragment mainFragment;
+    private MealFragment mealFragment;
+    private CleanAndDndstFragment cleanAndDndstFragment;
+    private LightOutFragment lightOutFragment;
+    private CheckOutFragment checkOutFragment;
 
 
     @Override
@@ -55,7 +59,8 @@ public class MainActivity extends MyBaseActivity implements STTListener {
     @Override
     protected void initData() {
         RobotManager.getInstance().initSTTEngine(this);
-        chooseFragment(Constant.FRAGMENT_WELCOME);
+        chooseFragment(Constant.FRAGMENT_CHECK_OUT);
+
     }
 
     @Override
@@ -65,11 +70,11 @@ public class MainActivity extends MyBaseActivity implements STTListener {
 
     @OnClick(R.id.btn_speaker)
     public void onSTTClick() {
-//        PermissionHelper.with(this)
-//                .requestCode(PERMISSION_RECORD)
-//                .permissions(Manifest.permission.RECORD_AUDIO)
-//                .request();
-        chooseFragment(Constant.FRAGMENT_MAIN);
+        //        PermissionHelper.with(this)
+        //                .requestCode(PERMISSION_RECORD)
+        //                .permissions(Manifest.permission.RECORD_AUDIO)
+        //                .request();
+        chooseFragment(Constant.FRAGMENT_LIGHT_OUT);
     }
 
 
@@ -103,12 +108,35 @@ public class MainActivity extends MyBaseActivity implements STTListener {
     private void chooseFragment(String itemTitle) {
         switch (itemTitle) {
             case Constant.FRAGMENT_WELCOME:
-                if (welcomeFragment == null) welcomeFragment = WelcomeFragment.newInstance();
+                if (welcomeFragment == null)
+                    welcomeFragment = WelcomeFragment.newInstance();
                 fragmentHelper.switchFragment(welcomeFragment);
                 break;
             case Constant.FRAGMENT_MAIN:
-                if (mainFragment == null) mainFragment = MainFragment.newInstance();
+                if (mainFragment == null)
+                    mainFragment = MainFragment.newInstance();
                 fragmentHelper.switchFragment(mainFragment);
+                break;
+            case Constant.FRAGMENT_MEAL:
+                if (mealFragment == null)
+                    mealFragment = MealFragment.newInstance();
+                fragmentHelper.switchFragment(mealFragment);
+                break;
+            case Constant.FRAGMENT_CLEAN_DNDST:
+                if (cleanAndDndstFragment == null)
+                    cleanAndDndstFragment = CleanAndDndstFragment.newInstance(1);
+                fragmentHelper.switchFragment(cleanAndDndstFragment);
+                break;
+            case Constant.FRAGMENT_LIGHT_OUT:
+                if (lightOutFragment == null)
+                    lightOutFragment = LightOutFragment.newInstance();
+                fragmentHelper.switchFragment(lightOutFragment);
+                break;
+            case Constant.FRAGMENT_CHECK_OUT:
+                if (checkOutFragment == null) {
+                    checkOutFragment = CheckOutFragment.newInstance();
+                }
+                fragmentHelper.switchFragment(checkOutFragment);
                 break;
         }
     }

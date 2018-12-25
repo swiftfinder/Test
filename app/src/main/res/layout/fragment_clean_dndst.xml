@@ -77,10 +77,25 @@
 
     </LinearLayout>
 
-    <ImageView
-        android:layout_width="371dp"
-        android:layout_height="297dp"
-        android:layout_centerInParent="true"
-        android:background="@drawable/image_logo"/>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
+        <ImageView
+            android:id="@+id/iv_clean"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/image_clean_open"/>
+
+        <ImageView
+            android:id="@+id/iv_dndst"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="88dp"
+            android:layout_toRightOf="@id/iv_clean"
+            android:src="@drawable/image_dndst_open"/>
+
+    </RelativeLayout>
 
 </RelativeLayout>

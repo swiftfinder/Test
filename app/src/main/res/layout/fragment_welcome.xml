@@ -1,13 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/icon_logo"/>
+
+    <RelativeLayout
+        android:id="@+id/ll_time"
+        android:layout_width="wrap_content"
+        android:layout_height="96dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="21dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="12:30"
+                android:letterSpacing="0.1"
+                android:textColor="@color/text_grey"
+                android:textSize="44sp"/>
+
+            <TextView
+                android:id="@+id/tv_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2018年12月1号 周六"
+                android:textColor="@color/text_grey"
+                android:textSize="15sp"/>
+
+        </LinearLayout>
+    </RelativeLayout>
+
     <TextView
+        android:id="@+id/tv_welcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:text="welcome"/>
+        android:text="张先生，欢迎入住希尔顿酒店！"
+        android:textColor="@color/text_white"
+        android:textSize="62dp"
+        android:textStyle="bold"/>
+
+    <ImageView
+        android:id="@+id/iv_line"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/tv_welcome"
+        android:layout_marginTop="37dp"
+        android:src="@drawable/image_line"/>
+
+    <TextView
+        android:id="@+id/tv_welcome_bed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iv_line"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="65dp"
+        android:text="豪华大床房（含双早）"
+        android:textStyle="bold"
+        android:textColor="@color/text_white"
+        android:textSize="22dp"/>
+
+    <TextView
+        android:id="@+id/tv_welcome_time_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_welcome_bed"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="26dp"
+        android:text="入住时间       2018年12月1日"
+        android:textColor="@color/text_white"
+        android:textSize="20dp"/>
+
+    <TextView
+        android:id="@+id/tv_welcome_time_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_welcome_time_start"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="9dp"
+        android:text="离店时间       2018年12月3日"
+        android:textColor="@color/text_white"
+        android:textSize="20dp"/>
 
 </RelativeLayout>

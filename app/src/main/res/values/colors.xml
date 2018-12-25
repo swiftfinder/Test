@@ -5,10 +5,12 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="bg_common_window">#ffffff</color>
+    <color name="bg_checkout">#805e6c97</color>
 
     <color name="text_orange">#ee7326</color>
     <color name="text_white">#ffffff</color>
     <color name="text_blue1">#74c8d4</color>
     <color name="text_blue2">#7bdeff</color>
+    <color name="text_grey">#efefef</color>
 
 </resources>
