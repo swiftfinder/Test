@@ -13,4 +13,6 @@ public class Constant {
     public static final String FRAGMENT_CLEAN_DNDST = "fragment_clean_dndst";
     public static final String FRAGMENT_LIGHT_OUT = "fragment_light_out";
     public static final String FRAGMENT_CHECK_OUT = "fragment_check_out";
+    public static final String FRAGMENT_WEATHER = "fragment_weather";
+    public static final String FRAGMENT_UNSUBSCRIBE = "fragment_unsubscribe";
 }

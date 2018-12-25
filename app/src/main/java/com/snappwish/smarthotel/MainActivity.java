@@ -39,6 +39,8 @@ public class MainActivity extends MyBaseActivity implements STTListener {
     private CleanAndDndstFragment cleanAndDndstFragment;
     private LightOutFragment lightOutFragment;
     private CheckOutFragment checkOutFragment;
+    private WeatherFragment weatherFragment;
+    private UnsubscribeFragment unsubscribeFragment;
 
 
     @Override
@@ -137,7 +139,15 @@ public class MainActivity extends MyBaseActivity implements STTListener {
                     checkOutFragment = CheckOutFragment.newInstance();
                 }
                 fragmentHelper.switchFragment(checkOutFragment);
+            case Constant.FRAGMENT_WEATHER:
+                if (weatherFragment == null) weatherFragment = WeatherFragment.newInstance();
+                fragmentHelper.switchFragment(weatherFragment);
                 break;
+            case Constant.FRAGMENT_UNSUBSCRIBE:
+                if (unsubscribeFragment == null) unsubscribeFragment = UnsubscribeFragment.newInstance();
+                fragmentHelper.switchFragment(unsubscribeFragment);
+                break;
+
         }
     }
 }
