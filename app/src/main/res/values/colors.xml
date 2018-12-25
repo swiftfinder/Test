@@ -6,4 +6,9 @@
 
     <color name="bg_common_window">#ffffff</color>
 
+    <color name="text_orange">#ee7326</color>
+    <color name="text_white">#ffffff</color>
+    <color name="text_blue1">#74c8d4</color>
+    <color name="text_blue2">#7bdeff</color>
+
 </resources>
