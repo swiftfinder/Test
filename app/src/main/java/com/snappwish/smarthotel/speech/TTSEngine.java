@@ -89,7 +89,9 @@ public class TTSEngine {
 
             @Override
             public void onCompleted(SpeechError speechError) {
-
+                if (listener != null) {
+                    listener.onCompleted();
+                }
             }
 
             @Override
@@ -97,5 +99,15 @@ public class TTSEngine {
 
             }
         });
+    }
+
+    private TtsListener listener;
+
+    public void setListener(TtsListener listener) {
+        this.listener = listener;
+    }
+
+    public interface TtsListener {
+        void onCompleted();
     }
 }

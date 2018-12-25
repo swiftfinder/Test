@@ -13,6 +13,7 @@ import com.snappwish.base_core.permission.PermissionSuccess;
 import com.snappwish.smarthotel.base.MyBaseActivity;
 import com.snappwish.smarthotel.speech.RobotManager;
 import com.snappwish.smarthotel.speech.STTListener;
+import com.snappwish.smarthotel.speech.TTSEngine;
 import com.snappwish.smarthotel.speech.WakeupListener;
 import com.snappwish.smarthotel.speech.WakeupManager;
 
@@ -23,7 +24,7 @@ import butterknife.BindView;
  * description:
  */
 
-public class MainActivity extends MyBaseActivity implements STTListener, WakeupListener {
+public class MainActivity extends MyBaseActivity implements STTListener, WakeupListener, TTSEngine.TtsListener {
 
     private static final String TAG = "MainActivity";
     @BindView(R.id.fragment)
@@ -46,6 +47,7 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
     private WeatherFragment weatherFragment;
     private UnsubscribeFragment unsubscribeFragment;
     private PayGoodsFragment payGoodsFragment;
+    private VideoFragment videoFragment;
 
 
     @Override
@@ -71,8 +73,8 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
                 .request();
 
         RobotManager.getInstance().initSTTEngine(this, false);
+        RobotManager.getInstance().initTTSEngine(this, this);
         chooseFragment(Constant.FRAGMENT_MAIN);
-
     }
 
     @Override
@@ -95,6 +97,7 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
         PermissionHelper.onRequestPermissionsResult(this, requestCode, permissions);
     }
 
+    private boolean checkOut = false;
 
     @Override
     public void sttSuccess(String content) {
@@ -105,7 +108,8 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
             RobotManager.getInstance().startSpeaking(getString(R.string.answer_meal));
             chooseFragment(Constant.FRAGMENT_MEAL);
         } else if (content.contains("新闻")) {
-//                    chooseFragment();
+            RobotManager.getInstance().startSpeaking(getString(R.string.answer_video));
+            chooseFragment(Constant.FRAGMENT_VIDEO);
         } else if (content.contains("打扫") || content.contains("卫生")) {
             RobotManager.getInstance().startSpeaking(getString(R.string.answer_clean_hotel));
             chooseFragment(Constant.FRAGMENT_CLEAN_DNDST, 1);
@@ -116,16 +120,26 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
             RobotManager.getInstance().startSpeaking(getString(R.string.ansewer_good_night));
             chooseFragment(Constant.FRAGMENT_LIGHT_OUT);
         } else if (content.contains("退房")) {
+            checkOut = true;
             RobotManager.getInstance().startSpeaking(getString(R.string.answer_checkout));
             chooseFragment(Constant.FRAGMENT_CHECK_OUT);
-        } else if (content.contains("谢谢")) {
-            RobotManager.getInstance().startSpeaking("不客气");
-        } else if (content.contains("确认")) {
+        } else if (content.contains("确认") && checkOut) {
             RobotManager.getInstance().startSpeaking(getString(R.string.answer_pay_goods));
             chooseFragment(Constant.FRAGMENT_PAY_GOODS);
-        } else if (content.contains("没有")) {
+        } else if (content.contains("没有") && checkOut) {
             RobotManager.getInstance().startSpeaking(getString(R.string.answer_unsubscribe));
             chooseFragment(Constant.FRAGMENT_UNSUBSCRIBE);
+        } else if ((content.contains("一分")
+                || content.contains("二分")
+                || content.contains("两分")
+                || content.contains("三分")
+                || content.contains("四分")
+                || content.contains("五分")) && checkOut) {
+            RobotManager.getInstance().startSpeaking(getString(R.string.answer_unsubscribe_end));
+            checkOut = false;
+            chooseFragment(Constant.FRAGMENT_MAIN);
+        } else if (content.contains("谢谢")) {
+            RobotManager.getInstance().startSpeaking("不客气");
         } else {
             RobotManager.getInstance().startSpeaking(getString(R.string.answer_error));
         }
@@ -195,6 +209,13 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
                 }
                 fragmentHelper.switchFragment(payGoodsFragment);
                 break;
+            case Constant.FRAGMENT_VIDEO:
+                if (videoFragment == null) {
+                    videoFragment = VideoFragment.newInstance();
+                }
+                fragmentHelper.switchFragment(videoFragment);
+                break;
+
         }
     }
 
@@ -211,4 +232,20 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
     public void wakeupFailed(String failedMsg) {
 
     }
+
+    @Override
+    public void onCompleted() {
+        if (isWelcome) {
+            isWelcome = false;
+            WakeupManager.getInstance(this).startWakeup(this);
+        }
+    }
+
+
+    private boolean isWelcome = false;
+
+    public void setWelcome(boolean isWelcome) {
+        this.isWelcome = isWelcome;
+    }
+
 }

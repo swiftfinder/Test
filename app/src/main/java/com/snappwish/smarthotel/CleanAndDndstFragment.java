@@ -50,6 +50,17 @@ public class CleanAndDndstFragment extends MyBaseFragment {
 
     @Override
     protected void initData() {
+
+    }
+
+    @Override
+    protected void destroyData() {
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         int status = getArguments().getInt("status");
         switch (status) {
             case 0:
@@ -66,10 +77,4 @@ public class CleanAndDndstFragment extends MyBaseFragment {
                 break;
         }
     }
-
-    @Override
-    protected void destroyData() {
-
-    }
-
 }
