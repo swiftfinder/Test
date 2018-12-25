@@ -70,7 +70,7 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
                 .permissions(Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 .request();
 
-        RobotManager.getInstance().initSTTEngine(this);
+        RobotManager.getInstance().initSTTEngine(this, false);
         chooseFragment(Constant.FRAGMENT_MAIN);
 
     }
@@ -79,11 +79,6 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
     protected void destroyData() {
 
     }
-
-    public void onSTTClick() {
-
-    }
-
 
     @PermissionSuccess(requestCode = PERMISSION_RECORD)
     private void callSuccess() {
@@ -103,12 +98,45 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
 
     @Override
     public void sttSuccess(String content) {
-        RobotManager.getInstance().startSpeaking(content);
+        if (content.contains("天气")) {
+            RobotManager.getInstance().startSpeaking("明天南京天气晴朗，有微风，温度2~9摄氏度");
+            chooseFragment(Constant.FRAGMENT_WEATHER);
+        } else if (content.contains("早餐") || content.contains("吃")) {
+            RobotManager.getInstance().startSpeaking(getString(R.string.answer_meal));
+            chooseFragment(Constant.FRAGMENT_MEAL);
+        } else if (content.contains("新闻")) {
+//                    chooseFragment();
+        } else if (content.contains("打扫") || content.contains("卫生")) {
+            RobotManager.getInstance().startSpeaking(getString(R.string.answer_clean_hotel));
+            chooseFragment(Constant.FRAGMENT_CLEAN_DNDST, 1);
+        } else if (content.contains("请勿打扰")) {
+            RobotManager.getInstance().startSpeaking(getString(R.string.answer_not_dndst));
+            chooseFragment(Constant.FRAGMENT_CLEAN_DNDST, 2);
+        } else if (content.contains("关灯")) {
+            RobotManager.getInstance().startSpeaking(getString(R.string.ansewer_good_night));
+            chooseFragment(Constant.FRAGMENT_LIGHT_OUT);
+        } else if (content.contains("退房")) {
+            RobotManager.getInstance().startSpeaking(getString(R.string.answer_checkout));
+            chooseFragment(Constant.FRAGMENT_CHECK_OUT);
+        } else if (content.contains("谢谢")) {
+            RobotManager.getInstance().startSpeaking("不客气");
+        } else if (content.contains("确认")) {
+            RobotManager.getInstance().startSpeaking(getString(R.string.answer_pay_goods));
+            chooseFragment(Constant.FRAGMENT_PAY_GOODS);
+        } else if (content.contains("没有")) {
+            RobotManager.getInstance().startSpeaking(getString(R.string.answer_unsubscribe));
+            chooseFragment(Constant.FRAGMENT_UNSUBSCRIBE);
+        } else {
+            RobotManager.getInstance().startSpeaking(getString(R.string.answer_error));
+        }
+        WakeupManager.getInstance(this).startWakeup(this);
+        lottieAnimationView.cancelAnimation();
     }
 
     @Override
-    public void sttFailed() {
-
+    public void sttFailed(String errorMsg) {
+        lottieAnimationView.cancelAnimation();
+        WakeupManager.getInstance(this).startWakeup(this);
     }
 
     public void startSpeak(String content) {
@@ -151,6 +179,7 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
                     checkOutFragment = CheckOutFragment.newInstance();
                 }
                 fragmentHelper.switchFragment(checkOutFragment);
+                break;
             case Constant.FRAGMENT_WEATHER:
                 if (weatherFragment == null) weatherFragment = WeatherFragment.newInstance();
                 fragmentHelper.switchFragment(weatherFragment);
@@ -172,36 +201,10 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
     @Override
     public void wakeupSuccess() {
         lottieAnimationView.playAnimation();
+        WakeupManager.getInstance(this).cancelWakeup();
         RobotManager.getInstance().setVoiceState(true);
         RobotManager.getInstance().setVoiceType("xiaoyan");
-        RobotManager.getInstance().startRecognizing(new STTListener() {
-            @Override
-            public void sttSuccess(String content) {
-                if (content.contains("天气")) {
-                    RobotManager.getInstance().startSpeaking("明天南京天气很好，很晴朗");
-                    chooseFragment(Constant.FRAGMENT_WEATHER);
-                } else if (content.contains("早餐") || content.contains("吃")) {
-                    RobotManager.getInstance().startSpeaking("好的，已为您找到餐厅位置");
-                    chooseFragment(Constant.FRAGMENT_MEAL);
-                } else if (content.contains("新闻")) {
-//                    chooseFragment();
-                } else if (content.contains("打扫") || content.contains("卫生")) {
-                    chooseFragment(Constant.FRAGMENT_CLEAN_DNDST, 1);
-                } else if (content.contains("请勿打扰")) {
-                    chooseFragment(Constant.FRAGMENT_CLEAN_DNDST, 2);
-                } else if (content.contains("关灯")) {
-                    chooseFragment(Constant.FRAGMENT_LIGHT_OUT);
-                } else if (content.contains("退房")) {
-                    chooseFragment(Constant.FRAGMENT_CHECK_OUT);
-
-                }
-            }
-
-            @Override
-            public void sttFailed() {
-
-            }
-        });
+        RobotManager.getInstance().startRecognizing(this);
     }
 
     @Override

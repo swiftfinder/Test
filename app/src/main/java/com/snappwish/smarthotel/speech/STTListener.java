@@ -8,6 +8,7 @@ package com.snappwish.smarthotel.speech;
 public interface STTListener {
     /**
      * stt success
+     *
      * @param content
      */
     void sttSuccess(String content);
@@ -15,5 +16,5 @@ public interface STTListener {
     /**
      * stt failed
      */
-    void sttFailed();
+    void sttFailed(String failedMsg);
 }
