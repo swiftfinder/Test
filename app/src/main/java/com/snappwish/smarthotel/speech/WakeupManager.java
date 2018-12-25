@@ -116,6 +116,12 @@ public class WakeupManager {
         mIvw.stopListening();
     }
 
+    public void cancelWakeup() {
+        if (mIvw != null) {
+            mIvw.cancel();
+        }
+    }
+
     /**
      * 唤醒词监听类
      *

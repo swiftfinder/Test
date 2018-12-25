@@ -35,8 +35,8 @@ public class RobotManager {
      *
      * @param context
      */
-    public void initSTTEngine(Context context) {
-        mSTTEngine = new STTEngine(context);
+    public void initSTTEngine(Context context, boolean hasDialog) {
+        mSTTEngine = new STTEngine(context, hasDialog);
     }
 
     /**
