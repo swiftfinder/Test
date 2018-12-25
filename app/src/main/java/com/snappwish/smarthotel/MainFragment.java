@@ -5,6 +5,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.snappwish.smarthotel.base.MyBaseFragment;
+import com.snappwish.smarthotel.speech.WakeupManager;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -49,6 +50,8 @@ public class MainFragment extends MyBaseFragment {
     public void logoClick() {
         ((MainActivity) getActivity()).chooseFragment(Constant.FRAGMENT_WELCOME);
         ((MainActivity) getActivity()).startSpeak(getString(R.string.speak_welcome));
+        WakeupManager.getInstance(this.getContext()).destroyWakeup();
+        ((MainActivity) getActivity()).setWelcome(true);
     }
 
 }

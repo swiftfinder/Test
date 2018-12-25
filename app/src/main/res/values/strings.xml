@@ -37,6 +37,8 @@
     <string name="ansewer_good_night">好的，所有灯光已关闭，晚安</string>
     <string name="answer_checkout">好的，我将为您安排退房事宜。您在2018年12月24日星期五入住，今日退房，一共3晚，房费1800元。您确认此次账单信息吗？</string>
     <string name="answer_pay_goods">好的，屏幕上列出了房间内可消费商品，请问您消费了哪些商品？</string>
-    <string name="answer_unsubscribe">好的，退房手续已办好，您可将房卡留在房间。如果需要开发票，请用手机扫描屏幕上的二维码，并提供开票信息，前台将为您准备好增值税发票，您下楼自取即可</string>
+    <string name="answer_unsubscribe">好的，退房手续已办好，您可将房卡留在房间。如果需要开发票，请用手机扫描屏幕上的二维码，并提供开票信息，前台将为您准备好增值税发票，您下楼自取即可。对于此次住宿体验，如果2分表示满意，1分表示一般，1分表示不满意，请问您给我们打几分？</string>
     <string name="answer_error">哎呀，出错了</string>
+    <string name="answer_video">好的，下面是今日要闻。</string>
+    <string name="answer_unsubscribe_end">谢谢！离开房间时请不要遗忘您的个人物品，期待您下次再次选择我们酒店！</string>
 </resources>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/ll_time"
+        android:layout_width="wrap_content"
+        android:layout_height="96dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="21dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
+
+            <TextClock
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:format24Hour="HH:mm"
+                android:letterSpacing="0.1"
+                android:textColor="@color/text_grey"
+                android:textSize="44sp"/>
+
+            <TextClock
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:format24Hour="yyyy年MM月dd日 E"
+                android:textColor="@color/text_grey"
+                android:textSize="15sp"/>
+
+        </LinearLayout>
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/iv_video_bg"
+        android:layout_width="267dp"
+        android:layout_height="267dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="85dp"
+        android:src="@drawable/img_hotel_bg"/>
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iv_video_bg"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:text="今日要闻"
+        android:textColor="@color/text_white"
+        android:textSize="30sp"/>
+
+    <ProgressBar
+        android:id="@+id/progress"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_below="@id/tv_name"
+        android:layout_marginTop="30dp"
+        android:progress="30"/>
+
+    <TextView
+        android:id="@+id/tv_start_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/progress"
+        android:layout_marginTop="4dp"
+        android:text="03:34"
+        android:textSize="22dp"
+        android:textColor="@color/text_white"/>
+
+    <TextView
+        android:id="@+id/tv_end_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/progress"
+        android:layout_marginTop="4dp"
+        android:text="03:34"
+        android:textSize="22dp"
+        android:textColor="@color/text_white"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:layout_below="@id/tv_start_time"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv_left"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/icon_sunny"/>
+
+        <ImageView
+            android:id="@+id/iv_stop"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:src="@drawable/icon_sunny"/>
+
+        <ImageView
+            android:id="@+id/iv_finish"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="50dp"
+            android:src="@drawable/icon_sunny"/>
+
+        <ImageView
+            android:id="@+id/iv_right"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/icon_sunny"/>
+    </LinearLayout>
+
+
+</RelativeLayout>
