@@ -1,6 +1,6 @@
 package com.snappwish.smarthotel;
 
-import android.os.Bundle;
+import android.Manifest;
 import android.support.annotation.NonNull;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -16,7 +16,6 @@ import com.snappwish.smarthotel.speech.RobotManager;
 import com.snappwish.smarthotel.speech.STTListener;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -69,7 +68,7 @@ public class MainActivity extends MyBaseActivity implements STTListener {
     @Override
     protected void initData() {
         RobotManager.getInstance().initSTTEngine(this);
-        chooseFragment(Constant.FRAGMENT_MAIN);
+        chooseFragment(Constant.FRAGMENT_WELCOME);
 
     }
 
@@ -80,11 +79,10 @@ public class MainActivity extends MyBaseActivity implements STTListener {
 
     @OnClick(R.id.btn_speaker)
     public void onSTTClick() {
-        //        PermissionHelper.with(this)
-        //                .requestCode(PERMISSION_RECORD)
-        //                .permissions(Manifest.permission.RECORD_AUDIO)
-        //                .request();
-        chooseFragment(Constant.FRAGMENT_MAIN);
+        PermissionHelper.with(this)
+                .requestCode(PERMISSION_RECORD)
+                .permissions(Manifest.permission.RECORD_AUDIO)
+                .request();
     }
 
 
@@ -115,7 +113,11 @@ public class MainActivity extends MyBaseActivity implements STTListener {
 
     }
 
-    private void chooseFragment(String itemTitle) {
+    public void startSpeak(String content) {
+        RobotManager.getInstance().startSpeaking(content);
+    }
+
+    public void chooseFragment(String itemTitle) {
         switch (itemTitle) {
             case Constant.FRAGMENT_WELCOME:
                 if (welcomeFragment == null)
@@ -152,7 +154,8 @@ public class MainActivity extends MyBaseActivity implements STTListener {
                 fragmentHelper.switchFragment(weatherFragment);
                 break;
             case Constant.FRAGMENT_UNSUBSCRIBE:
-                if (unsubscribeFragment == null) unsubscribeFragment = UnsubscribeFragment.newInstance();
+                if (unsubscribeFragment == null)
+                    unsubscribeFragment = UnsubscribeFragment.newInstance();
                 fragmentHelper.switchFragment(unsubscribeFragment);
                 break;
             case Constant.FRAGMENT_PAY_GOODS:

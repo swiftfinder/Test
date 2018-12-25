@@ -17,20 +17,18 @@
             android:layout_centerInParent="true"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_time"
+            <TextClock
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:letterSpacing="0.1"
-                android:text="12:30"
+                android:format24Hour="HH:mm"
                 android:textColor="@color/text_grey"
                 android:textSize="44sp"/>
 
-            <TextView
-                android:id="@+id/tv_day"
+            <TextClock
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2018年12月1号 周六"
+                android:format24Hour="yyyy年MM月dd日 E"
                 android:textColor="@color/text_grey"
                 android:textSize="15sp"/>
 

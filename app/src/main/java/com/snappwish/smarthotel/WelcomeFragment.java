@@ -14,10 +14,6 @@ import butterknife.BindView;
 
 public class WelcomeFragment extends MyBaseFragment {
 
-    @BindView(R.id.tv_time)
-    TextView tvTime;
-    @BindView(R.id.tv_day)
-    TextView tvDay;
     @BindView(R.id.tv_welcome)
     TextView tvWelcome;
     @BindView(R.id.tv_welcome_bed)
@@ -44,11 +40,6 @@ public class WelcomeFragment extends MyBaseFragment {
 
     @Override
     protected void initData() {
-        String time = DateUtils.nowTimeDetail3();
-        String day = DateUtils.nowTimeDetail2();
-
-        tvTime.setText(time);
-        tvDay.setText(day);
     }
 
     @Override

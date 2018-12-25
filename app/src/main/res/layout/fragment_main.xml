@@ -17,27 +17,25 @@
             android:layout_centerInParent="true"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_time"
+            <TextClock
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:format24Hour="HH:mm"
                 android:letterSpacing="0.1"
-                android:text="12:30"
                 android:textColor="@color/text_grey"
                 android:textSize="44sp"/>
 
-            <TextView
-                android:id="@+id/tv_day"
+            <TextClock
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2018年12月1号 周六"
+                android:format24Hour="yyyy年MM月dd日 E"
                 android:textColor="@color/text_grey"
                 android:textSize="15sp"/>
 
         </LinearLayout>
     </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="96dp"
         android:orientation="horizontal">
@@ -46,7 +44,7 @@
             android:id="@+id/iv_temperature"
             android:layout_width="41dp"
             android:layout_height="41dp"
-            android:layout_gravity="center_vertical"
+            android:layout_centerVertical="true"
             android:layout_marginRight="20dp"
             android:scaleType="centerCrop"
             android:src="@drawable/icon_sunny"/>
@@ -55,18 +53,30 @@
             android:id="@+id/tv_temperature"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="20℃"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/iv_temperature"
+            android:text="20"
             android:textColor="@color/text_grey"
             android:textSize="50sp"/>
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/tv_placeholder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/tv_temperature"
+            android:layout_toRightOf="@id/tv_temperature"
+            android:text="℃"
+            android:textColor="@android:color/white"
+            android:textSize="25sp"/>
+
+    </RelativeLayout>
 
     <ImageView
+        android:id="@+id/iv_logo"
         android:layout_width="371dp"
         android:layout_height="297dp"
-        android:layout_marginTop="100dp"
         android:layout_centerInParent="true"
+        android:layout_marginTop="100dp"
         android:background="@drawable/image_logo"/>
 
 </RelativeLayout>

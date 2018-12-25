@@ -44,13 +44,13 @@
 
     </RelativeLayout>
 
-    <TextView
+    <TextClock
         android:id="@+id/tv_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/rl_weather"
         android:layout_centerHorizontal="true"
-        android:text="2018年12月1日 周六"
+        android:format24Hour="yyyy年MM月dd日 E"
         android:textColor="@android:color/white"
         android:textSize="30sp" />
 

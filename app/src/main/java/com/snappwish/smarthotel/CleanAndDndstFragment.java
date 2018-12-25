@@ -21,10 +21,6 @@ import butterknife.Unbinder;
 
 public class CleanAndDndstFragment extends MyBaseFragment {
 
-    @BindView(R.id.tv_time)
-    TextView tvTime;
-    @BindView(R.id.tv_day)
-    TextView tvDay;
     @BindView(R.id.iv_temperature)
     ImageView ivTemperature;
     @BindView(R.id.tv_temperature)
@@ -54,12 +50,6 @@ public class CleanAndDndstFragment extends MyBaseFragment {
 
     @Override
     protected void initData() {
-        String time = DateUtils.nowTimeDetail3();
-        String day = DateUtils.nowTimeDetail2();
-
-        tvTime.setText(time);
-        tvDay.setText(day);
-
         int status = getArguments().getInt("status");
         switch (status) {
             case 0:
