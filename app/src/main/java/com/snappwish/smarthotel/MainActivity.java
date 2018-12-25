@@ -67,7 +67,7 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
     protected void initData() {
         PermissionHelper.with(this)
                 .requestCode(PERMISSION_RECORD)
-                .permissions(Manifest.permission.RECORD_AUDIO)
+                .permissions(Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 .request();
 
         RobotManager.getInstance().initSTTEngine(this);
