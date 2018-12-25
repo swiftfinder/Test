@@ -15,4 +15,5 @@ public class Constant {
     public static final String FRAGMENT_CHECK_OUT = "fragment_check_out";
     public static final String FRAGMENT_WEATHER = "fragment_weather";
     public static final String FRAGMENT_UNSUBSCRIBE = "fragment_unsubscribe";
+    public static final String FRAGMENT_PAY_GOODS = "fragment_pay_goods";
 }

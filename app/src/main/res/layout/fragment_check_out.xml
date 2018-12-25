@@ -25,9 +25,9 @@
             android:id="@+id/tv_hotel_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="希尔顿酒店及度假村"
+            android:text="@string/check_out_hotel_name"
             android:textColor="@color/text_white"
-            android:textSize="39dp"
+            android:textSize="39sp"
             android:textStyle="bold"/>
 
         <TextView
@@ -36,9 +36,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_hotel_name"
             android:layout_marginTop="13dp"
-            android:text="豪华大床房（含双早）"
+            android:text="@string/check_out_hotel_title"
             android:textColor="@color/text_white"
-            android:textSize="25dp"
+            android:textSize="25sp"
             android:textStyle="bold"/>
 
         <TextView
@@ -47,9 +47,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_hotel_title"
             android:layout_marginTop="13dp"
-            android:text="房号 1608"
+            android:text="@string/check_out_hotel_number"
             android:textColor="@color/text_white"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:textStyle="bold"/>
 
         <LinearLayout
@@ -62,9 +62,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="入住时间"
+                android:text="@string/check_out_start_time"
                 android:textColor="@color/text_white"
-                android:textSize="20dp"/>
+                android:textSize="18sp"/>
             <TextView
                 android:id="@+id/tv_welcome_time_start"
                 android:layout_width="wrap_content"
@@ -72,7 +72,7 @@
                 android:layout_marginLeft="14dp"
                 android:text="2018年12月1日"
                 android:textColor="@color/text_white"
-                android:textSize="20dp"/>
+                android:textSize="20sp"/>
 
         </LinearLayout>
 
@@ -86,9 +86,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="离店时间"
+                android:text="@string/check_out_end_time"
                 android:textColor="@color/text_white"
-                android:textSize="20dp"/>
+                android:textSize="18sp"/>
 
             <TextView
                 android:id="@+id/tv_welcome_time_end"
@@ -97,16 +97,16 @@
                 android:layout_marginLeft="14dp"
                 android:text="2018年12月3日"
                 android:textColor="@color/text_white"
-                android:textSize="20dp"/>
+                android:textSize="20sp"/>
 
             <TextView
                 android:id="@+id/tv_welcome_time_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="14dp"
-                android:text="共2晚"
+                android:layout_marginLeft="30dp"
+                android:text="@string/check_out_time_count"
                 android:textColor="@color/text_blue1"
-                android:textSize="20dp"/>
+                android:textSize="20sp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -118,9 +118,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="房费"
+                android:text="@string/check_out_room_rate"
                 android:textColor="@color/text_white"
-                android:textSize="22dp"/>
+                android:textSize="22sp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -128,7 +128,7 @@
                 android:layout_marginLeft="14dp"
                 android:text="¥"
                 android:textColor="@color/text_orange"
-                android:textSize="28dp"/>
+                android:textSize="28sp"/>
 
             <TextView
                 android:id="@+id/tv_money"
@@ -136,13 +136,17 @@
                 android:layout_height="wrap_content"
                 android:text="1800"
                 android:textColor="@color/text_orange"
-                android:textSize="50dp"/>
+                android:textSize="50sp"/>
         </LinearLayout>
 
         <Button
             android:layout_width="124dp"
-            android:text="确定"
-            android:layout_height="47dp"/>
+            android:layout_height="47dp"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/shape_button"
+            android:text="@string/button_ok"
+            android:textColor="@color/text_white"
+            android:textSize="25sp"/>
     </RelativeLayout>
 
 </RelativeLayout>

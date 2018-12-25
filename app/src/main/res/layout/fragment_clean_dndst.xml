@@ -37,24 +37,9 @@
         </LinearLayout>
     </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/ll_line"
-        android:layout_width="wrap_content"
-        android:layout_height="96dp"
-        android:layout_toLeftOf="@id/ll_time">
-        <ImageView
-            android:id="@+id/iv_line2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:src="@drawable/image_line2"/>
-    </RelativeLayout>
-
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="96dp"
-        android:layout_marginRight="21dp"
-        android:layout_toLeftOf="@id/ll_line"
         android:orientation="horizontal">
 
         <ImageView
@@ -86,6 +71,7 @@
             android:id="@+id/iv_clean"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
             android:src="@drawable/image_clean_open"/>
 
         <ImageView
@@ -93,6 +79,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="88dp"
+            android:layout_marginTop="100dp"
             android:layout_toRightOf="@id/iv_clean"
             android:src="@drawable/image_dndst_open"/>
 

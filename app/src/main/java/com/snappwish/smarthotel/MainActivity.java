@@ -1,8 +1,10 @@
 package com.snappwish.smarthotel;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.snappwish.base_core.basemvp.FragmentManagerHelper;
@@ -14,6 +16,7 @@ import com.snappwish.smarthotel.speech.RobotManager;
 import com.snappwish.smarthotel.speech.STTListener;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -30,8 +33,12 @@ public class MainActivity extends MyBaseActivity implements STTListener {
     TextView tvContent;
     @BindView(R.id.fragment)
     FrameLayout fragment;
+    @BindView(R.id.rl_root)
+    RelativeLayout rlRoot;
 
     private static final int PERMISSION_RECORD = 100;
+
+
     private FragmentManagerHelper fragmentHelper;
     private WelcomeFragment welcomeFragment;
     private MainFragment mainFragment;
@@ -41,6 +48,7 @@ public class MainActivity extends MyBaseActivity implements STTListener {
     private CheckOutFragment checkOutFragment;
     private WeatherFragment weatherFragment;
     private UnsubscribeFragment unsubscribeFragment;
+    private PayGoodsFragment payGoodsFragment;
 
 
     @Override
@@ -61,7 +69,7 @@ public class MainActivity extends MyBaseActivity implements STTListener {
     @Override
     protected void initData() {
         RobotManager.getInstance().initSTTEngine(this);
-        chooseFragment(Constant.FRAGMENT_CHECK_OUT);
+        chooseFragment(Constant.FRAGMENT_MAIN);
 
     }
 
@@ -76,7 +84,7 @@ public class MainActivity extends MyBaseActivity implements STTListener {
         //                .requestCode(PERMISSION_RECORD)
         //                .permissions(Manifest.permission.RECORD_AUDIO)
         //                .request();
-        chooseFragment(Constant.FRAGMENT_LIGHT_OUT);
+        chooseFragment(Constant.FRAGMENT_MAIN);
     }
 
 
@@ -147,7 +155,13 @@ public class MainActivity extends MyBaseActivity implements STTListener {
                 if (unsubscribeFragment == null) unsubscribeFragment = UnsubscribeFragment.newInstance();
                 fragmentHelper.switchFragment(unsubscribeFragment);
                 break;
-
+            case Constant.FRAGMENT_PAY_GOODS:
+                if (payGoodsFragment == null) {
+                    payGoodsFragment = PayGoodsFragment.newInstance();
+                }
+                fragmentHelper.switchFragment(payGoodsFragment);
+                break;
         }
     }
+
 }
