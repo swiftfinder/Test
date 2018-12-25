@@ -70,8 +70,8 @@ public class WakeupManager {
             mIvw.setParameter(SpeechConstant.PARAMS, null);
             // 唤醒门限值，根据资源携带的唤醒词个数按照“id:门限;id:门限”的格式传入
             mIvw.setParameter(SpeechConstant.IVW_THRESHOLD, "0:" + mCurrentThresh);
-            // 设置唤醒模式
-            mIvw.setParameter(SpeechConstant.IVW_SST, "wakeup");
+            // 设置唤醒模式 wakeup or oneshot
+            mIvw.setParameter(SpeechConstant.IVW_SST, "oneshot");
             // 设置持续进行唤醒
             mIvw.setParameter(SpeechConstant.KEEP_ALIVE, mKeepAlive);
             // 设置闭环优化网络模式

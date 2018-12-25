@@ -2,11 +2,10 @@ package com.snappwish.smarthotel;
 
 import android.Manifest;
 import android.support.annotation.NonNull;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.snappwish.base_core.basemvp.FragmentManagerHelper;
 import com.snappwish.base_core.permission.PermissionFailure;
 import com.snappwish.base_core.permission.PermissionHelper;
@@ -14,26 +13,25 @@ import com.snappwish.base_core.permission.PermissionSuccess;
 import com.snappwish.smarthotel.base.MyBaseActivity;
 import com.snappwish.smarthotel.speech.RobotManager;
 import com.snappwish.smarthotel.speech.STTListener;
+import com.snappwish.smarthotel.speech.WakeupListener;
+import com.snappwish.smarthotel.speech.WakeupManager;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 
 /**
  * Created by jinjin on 2018/12/22.
  * description:
  */
 
-public class MainActivity extends MyBaseActivity implements STTListener {
+public class MainActivity extends MyBaseActivity implements STTListener, WakeupListener {
 
     private static final String TAG = "MainActivity";
-    @BindView(R.id.btn_speaker)
-    Button btnSpeaker;
-    @BindView(R.id.tv_content)
-    TextView tvContent;
     @BindView(R.id.fragment)
     FrameLayout fragment;
     @BindView(R.id.rl_root)
     RelativeLayout rlRoot;
+    @BindView(R.id.lottie_view)
+    LottieAnimationView lottieAnimationView;
 
     private static final int PERMISSION_RECORD = 100;
 
@@ -67,8 +65,13 @@ public class MainActivity extends MyBaseActivity implements STTListener {
 
     @Override
     protected void initData() {
+        PermissionHelper.with(this)
+                .requestCode(PERMISSION_RECORD)
+                .permissions(Manifest.permission.RECORD_AUDIO)
+                .request();
+
         RobotManager.getInstance().initSTTEngine(this);
-        chooseFragment(Constant.FRAGMENT_WELCOME);
+        chooseFragment(Constant.FRAGMENT_MAIN);
 
     }
 
@@ -77,18 +80,14 @@ public class MainActivity extends MyBaseActivity implements STTListener {
 
     }
 
-    @OnClick(R.id.btn_speaker)
     public void onSTTClick() {
-        PermissionHelper.with(this)
-                .requestCode(PERMISSION_RECORD)
-                .permissions(Manifest.permission.RECORD_AUDIO)
-                .request();
+
     }
 
 
     @PermissionSuccess(requestCode = PERMISSION_RECORD)
     private void callSuccess() {
-        RobotManager.getInstance().startRecognizing(this);
+        WakeupManager.getInstance(this).startWakeup(this);
     }
 
     @PermissionFailure(requestCode = PERMISSION_RECORD)
@@ -104,7 +103,6 @@ public class MainActivity extends MyBaseActivity implements STTListener {
 
     @Override
     public void sttSuccess(String content) {
-        tvContent.setText(content);
         RobotManager.getInstance().startSpeaking(content);
     }
 
@@ -167,4 +165,16 @@ public class MainActivity extends MyBaseActivity implements STTListener {
         }
     }
 
+    @Override
+    public void wakeupSuccess() {
+        lottieAnimationView.playAnimation();
+        RobotManager.getInstance().setVoiceState(true);
+        RobotManager.getInstance().setVoiceType("xiaoyan");
+        RobotManager.getInstance().startSpeaking("您好，我是您的专属客服卤子俊");
+    }
+
+    @Override
+    public void wakeupFailed(String failedMsg) {
+
+    }
 }
