@@ -116,6 +116,10 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
     }
 
     public void chooseFragment(String itemTitle) {
+        chooseFragment(itemTitle, 0);
+    }
+
+    public void chooseFragment(String itemTitle, int status) {
         switch (itemTitle) {
             case Constant.FRAGMENT_WELCOME:
                 if (welcomeFragment == null)
@@ -134,7 +138,7 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
                 break;
             case Constant.FRAGMENT_CLEAN_DNDST:
                 if (cleanAndDndstFragment == null)
-                    cleanAndDndstFragment = CleanAndDndstFragment.newInstance(1);
+                    cleanAndDndstFragment = CleanAndDndstFragment.newInstance(status);
                 fragmentHelper.switchFragment(cleanAndDndstFragment);
                 break;
             case Constant.FRAGMENT_LIGHT_OUT:
@@ -170,7 +174,34 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
         lottieAnimationView.playAnimation();
         RobotManager.getInstance().setVoiceState(true);
         RobotManager.getInstance().setVoiceType("xiaoyan");
-        RobotManager.getInstance().startSpeaking("您好，我是您的专属客服卤子俊");
+        RobotManager.getInstance().startRecognizing(new STTListener() {
+            @Override
+            public void sttSuccess(String content) {
+                if (content.contains("天气")) {
+                    RobotManager.getInstance().startSpeaking("明天南京天气很好，很晴朗");
+                    chooseFragment(Constant.FRAGMENT_WEATHER);
+                } else if (content.contains("早餐") || content.contains("吃")) {
+                    RobotManager.getInstance().startSpeaking("好的，已为您找到餐厅位置");
+                    chooseFragment(Constant.FRAGMENT_MEAL);
+                } else if (content.contains("新闻")) {
+//                    chooseFragment();
+                } else if (content.contains("打扫") || content.contains("卫生")) {
+                    chooseFragment(Constant.FRAGMENT_CLEAN_DNDST, 1);
+                } else if (content.contains("请勿打扰")) {
+                    chooseFragment(Constant.FRAGMENT_CLEAN_DNDST, 2);
+                } else if (content.contains("关灯")) {
+                    chooseFragment(Constant.FRAGMENT_LIGHT_OUT);
+                } else if (content.contains("退房")) {
+                    chooseFragment(Constant.FRAGMENT_CHECK_OUT);
+
+                }
+            }
+
+            @Override
+            public void sttFailed() {
+
+            }
+        });
     }
 
     @Override

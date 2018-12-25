@@ -144,43 +144,27 @@ public class WakeupManager {
     public void startWakeup(WakeupListener listener) {
         mIvw = VoiceWakeuper.getWakeuper();
         mListener = listener;
-        //        if (mIvw != null) {
-        //            // 清空参数
-        //            mIvw.setParameter(SpeechConstant.PARAMS, null);
-        //            // 唤醒门限值，根据资源携带的唤醒词个数按照“id:门限;id:门限”的格式传入
-        //            mIvw.setParameter(SpeechConstant.IVW_THRESHOLD, "0:" + mCurrentThresh);
-        //            // 设置唤醒模式 wakeup or oneshot
-        //            mIvw.setParameter(SpeechConstant.IVW_SST, "oneshot");
-        //            // 设置持续进行唤醒
-        //            mIvw.setParameter(SpeechConstant.KEEP_ALIVE, mKeepAlive);
-        //            // 设置闭环优化网络模式
-        //            mIvw.setParameter(SpeechConstant.IVW_NET_MODE, mIvwNetMode);
-        //            // 设置唤醒资源路径
-        //            mIvw.setParameter(SpeechConstant.IVW_RES_PATH, getResource());
-        //            // 设置唤醒录音保存路径，保存最近一分钟的音频
-        //            mIvw.setParameter(SpeechConstant.IVW_AUDIO_PATH, Environment.getExternalStorageDirectory().getPath() + "/msc/ivw.wav");
-        //            mIvw.setParameter(SpeechConstant.AUDIO_FORMAT, "wav");
-        //            // 设置本地识别资源
-        //            mIvw.setParameter(ResourceUtil.ASR_RES_PATH, getResourcePath());
-        //            // 设置语法构建路径
-        //            mIvw.setParameter(ResourceUtil.GRM_BUILD_PATH, grmPath);
-        //            // 如有需要，设置 NOTIFY_RECORD_DATA 以实时通过 onEvent 返回录音音频流字节
-        //            //mIvw.setParameter( SpeechConstant.NOTIFY_RECORD_DATA, "1" );
-        //
-        //            // 启动唤醒
-        //            mIvw.startListening(new MyWakeupListener());
-        //        }
-        mAsr.setParameter(SpeechConstant.PARAMS, null);
-        mAsr.setParameter(SpeechConstant.TEXT_ENCODING, "utf-8");
-        // 设置引擎类型
-        mAsr.setParameter(SpeechConstant.ENGINE_TYPE, SpeechConstant.TYPE_LOCAL);
-        // 设置语法构建路径
-        mAsr.setParameter(ResourceUtil.GRM_BUILD_PATH, grmPath);
-        // 设置资源路径
-        mAsr.setParameter(ResourceUtil.ASR_RES_PATH, getResourcePath());
-        ret = mAsr.buildGrammar("bnf", mLocalGrammar, grammarListener);
-        if (ret != ErrorCode.SUCCESS) {
-            Log.e(TAG, "语法构建失败,错误码：" + ret);
+        if (mIvw != null) {
+            // 清空参数
+            mIvw.setParameter(SpeechConstant.PARAMS, null);
+            // 唤醒门限值，根据资源携带的唤醒词个数按照“id:门限;id:门限”的格式传入
+            mIvw.setParameter(SpeechConstant.IVW_THRESHOLD, "0:" + mCurrentThresh);
+            // 设置唤醒模式 wakeup or oneshot
+            mIvw.setParameter(SpeechConstant.IVW_SST, "wakeup");
+            // 设置持续进行唤醒
+            mIvw.setParameter(SpeechConstant.KEEP_ALIVE, mKeepAlive);
+            // 设置闭环优化网络模式
+            mIvw.setParameter(SpeechConstant.IVW_NET_MODE, mIvwNetMode);
+            // 设置唤醒资源路径
+            mIvw.setParameter(SpeechConstant.IVW_RES_PATH, getResource());
+            // 设置唤醒录音保存路径，保存最近一分钟的音频
+            mIvw.setParameter(SpeechConstant.IVW_AUDIO_PATH, Environment.getExternalStorageDirectory().getPath() + "/msc/ivw.wav");
+            mIvw.setParameter(SpeechConstant.AUDIO_FORMAT, "wav");
+            // 如有需要，设置 NOTIFY_RECORD_DATA 以实时通过 onEvent 返回录音音频流字节
+            //mIvw.setParameter( SpeechConstant.NOTIFY_RECORD_DATA, "1" );
+
+            // 启动唤醒
+            mIvw.startListening(new MyWakeupListener());
         }
 
     }
