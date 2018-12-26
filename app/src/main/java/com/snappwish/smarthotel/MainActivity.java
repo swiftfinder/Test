@@ -6,6 +6,7 @@ import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.os.Build;
+import android.os.CountDownTimer;
 import android.os.PowerManager;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
@@ -67,7 +68,6 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
     private MainFragment mainFragment;
     private MealFragment mealFragment;
     private CleanAndDndstFragment cleanAndDndstFragment;
-    private LightOutFragment lightOutFragment;
     private CheckOutFragment checkOutFragment;
     private WeatherFragment weatherFragment;
     private UnsubscribeFragment unsubscribeFragment;
@@ -233,11 +233,6 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
                 }
                 fragmentHelper.switchFragment(cleanAndDndstFragment);
                 break;
-            case Constant.FRAGMENT_LIGHT_OUT:
-                if (lightOutFragment == null)
-                    lightOutFragment = LightOutFragment.newInstance();
-                fragmentHelper.switchFragment(lightOutFragment);
-                break;
             case Constant.FRAGMENT_CHECK_OUT:
                 if (checkOutFragment == null) {
                     checkOutFragment = CheckOutFragment.newInstance();
@@ -298,6 +293,7 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
             screenOff();
         }
         hideToast();
+        toMainFragment();
     }
 
 
@@ -435,6 +431,25 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
             Toast.makeText(this, "没有设备管理权限",
                     Toast.LENGTH_LONG).show();
         }
+    }
+
+    private CountDownTimer countDownTimer;
+
+    private void toMainFragment() {
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+        }
+        countDownTimer = new CountDownTimer(300000, 1000) {
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+            }
+
+            @Override
+            public void onFinish() {
+                chooseFragment(Constant.FRAGMENT_MAIN);
+            }
+        }.start();
     }
 
 }
