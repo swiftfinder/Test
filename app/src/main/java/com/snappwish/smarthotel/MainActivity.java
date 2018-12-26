@@ -102,32 +102,32 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
     @Override
     public void sttSuccess(String content) {
         if (content.contains("天气")) {
-            RobotManager.getInstance().startSpeaking("明天南京天气晴朗，有微风，温度2~9摄氏度");
+            startSpeak("明天南京天气晴朗，有微风，温度2~9摄氏度");
             chooseFragment(Constant.FRAGMENT_WEATHER);
-        } else if (content.contains("早餐") || content.contains("吃")) {
-            RobotManager.getInstance().startSpeaking(getString(R.string.answer_meal));
+        } else if (content.contains("早餐") || content.contains("吃") || content.contains("早饭")) {
+            startSpeak(getString(R.string.answer_meal));
             chooseFragment(Constant.FRAGMENT_MEAL);
         } else if (content.contains("新闻")) {
-            RobotManager.getInstance().startSpeaking(getString(R.string.answer_video));
+            startSpeak(getString(R.string.answer_video));
             chooseFragment(Constant.FRAGMENT_VIDEO);
         } else if (content.contains("打扫") || content.contains("卫生")) {
-            RobotManager.getInstance().startSpeaking(getString(R.string.answer_clean_hotel));
+            startSpeak(getString(R.string.answer_clean_hotel));
             chooseFragment(Constant.FRAGMENT_CLEAN_DNDST, 1);
         } else if (content.contains("请勿打扰")) {
-            RobotManager.getInstance().startSpeaking(getString(R.string.answer_not_dndst));
+            startSpeak(getString(R.string.answer_not_dndst));
             chooseFragment(Constant.FRAGMENT_CLEAN_DNDST, 2);
         } else if (content.contains("关灯")) {
-            RobotManager.getInstance().startSpeaking(getString(R.string.ansewer_good_night));
+            startSpeak(getString(R.string.ansewer_good_night));
             chooseFragment(Constant.FRAGMENT_LIGHT_OUT);
         } else if (content.contains("退房")) {
             checkOut = true;
-            RobotManager.getInstance().startSpeaking(getString(R.string.answer_checkout));
+            startSpeak(getString(R.string.answer_checkout));
             chooseFragment(Constant.FRAGMENT_CHECK_OUT);
         } else if (content.contains("确认") && checkOut) {
-            RobotManager.getInstance().startSpeaking(getString(R.string.answer_pay_goods));
+            startSpeak(getString(R.string.answer_pay_goods));
             chooseFragment(Constant.FRAGMENT_PAY_GOODS);
         } else if (content.contains("没有") && checkOut) {
-            RobotManager.getInstance().startSpeaking(getString(R.string.answer_unsubscribe));
+            startSpeak(getString(R.string.answer_unsubscribe));
             chooseFragment(Constant.FRAGMENT_UNSUBSCRIBE);
         } else if ((content.contains("一分")
                 || content.contains("二分")
@@ -135,13 +135,13 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
                 || content.contains("三分")
                 || content.contains("四分")
                 || content.contains("五分")) && checkOut) {
-            RobotManager.getInstance().startSpeaking(getString(R.string.answer_unsubscribe_end));
+            startSpeak(getString(R.string.answer_unsubscribe_end));
             checkOut = false;
             chooseFragment(Constant.FRAGMENT_MAIN);
         } else if (content.contains("谢谢")) {
-            RobotManager.getInstance().startSpeaking("不客气");
+            startSpeak("不客气");
         } else {
-            RobotManager.getInstance().startSpeaking(getString(R.string.answer_error));
+            startSpeak(getString(R.string.answer_error));
         }
         WakeupManager.getInstance(this).startWakeup(this);
         lottieAnimationView.cancelAnimation();
