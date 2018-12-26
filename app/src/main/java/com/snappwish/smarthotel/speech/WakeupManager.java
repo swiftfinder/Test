@@ -95,7 +95,7 @@ public class WakeupManager {
      * @return 返回文件位置
      */
     private String getResource() {
-        return ResourceUtil.generateResourcePath(mContext, ResourceUtil.RESOURCE_TYPE.assets, "ivw/5c1d979f.jet");
+        return ResourceUtil.generateResourcePath(mContext, ResourceUtil.RESOURCE_TYPE.assets, "ivw/5c22eaa1.jet");
     }
 
     /**
