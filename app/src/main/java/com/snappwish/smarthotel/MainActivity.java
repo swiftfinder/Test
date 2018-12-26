@@ -1,11 +1,20 @@
 package com.snappwish.smarthotel;
 
 import android.Manifest;
+import android.app.KeyguardManager;
+import android.app.admin.DevicePolicyManager;
+import android.content.ComponentName;
+import android.content.Context;
+import android.os.Build;
+import android.os.PowerManager;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.snappwish.base_core.basemvp.FragmentManagerHelper;
@@ -43,12 +52,14 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
     private static final String TAG = "MainActivity";
     @BindView(R.id.fragment)
     FrameLayout fragment;
-    @BindView(R.id.rl_root)
-    RelativeLayout rlRoot;
     @BindView(R.id.lottie_view)
     LottieAnimationView lottieAnimationView;
 
     private static final int PERMISSION_RECORD = 100;
+    @BindView(R.id.tv_toast)
+    TextView tvToast;
+    @BindView(R.id.iv_sleep)
+    ImageView ivSleep;
 
 
     private FragmentManagerHelper fragmentHelper;
@@ -92,6 +103,12 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        hideBottomUIMenu();
+    }
+
+    @Override
     protected void destroyData() {
 
     }
@@ -115,33 +132,35 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
 
     @Override
     public void sttSuccess(String content) {
+        String text = "";
         if (content.contains("天气")) {
-            startSpeak(mWeatherInfo);
+            text = mWeatherInfo;
             chooseFragment(Constant.FRAGMENT_WEATHER);
         } else if (content.contains("早餐") || content.contains("吃") || content.contains("早饭")) {
-            startSpeak(getString(R.string.answer_meal));
+            text = getString(R.string.answer_meal);
             chooseFragment(Constant.FRAGMENT_MEAL);
         } else if (content.contains("新闻")) {
-            startSpeak(getString(R.string.answer_video));
+            text = getString(R.string.answer_video);
             chooseFragment(Constant.FRAGMENT_VIDEO);
         } else if (content.contains("打扫") || content.contains("卫生")) {
-            startSpeak(getString(R.string.answer_clean_hotel));
+            text = getString(R.string.answer_clean_hotel);
             chooseFragment(Constant.FRAGMENT_CLEAN_DNDST, 1);
         } else if (content.contains("请勿打扰")) {
-            startSpeak(getString(R.string.answer_not_dndst));
+            text = getString(R.string.answer_not_dndst);
             chooseFragment(Constant.FRAGMENT_CLEAN_DNDST, 2);
-        } else if (content.contains("关灯")) {
-            startSpeak(getString(R.string.ansewer_good_night));
-            chooseFragment(Constant.FRAGMENT_LIGHT_OUT);
+        } else if (content.contains("关灯") || content.contains("睡觉") || content.contains("休息")) {
+            isSleep = true;
+            text = getString(R.string.ansewer_good_night);
+            ivSleep.setVisibility(View.VISIBLE);
         } else if (content.contains("退房")) {
             checkOut = true;
-            startSpeak(getString(R.string.answer_checkout));
+            text = getString(R.string.answer_checkout);
             chooseFragment(Constant.FRAGMENT_CHECK_OUT);
         } else if (content.contains("确认") && checkOut) {
-            startSpeak(getString(R.string.answer_pay_goods));
+            text = getString(R.string.answer_pay_goods);
             chooseFragment(Constant.FRAGMENT_PAY_GOODS);
         } else if (content.contains("没有") && checkOut) {
-            startSpeak(getString(R.string.answer_unsubscribe));
+            text = getString(R.string.answer_unsubscribe);
             chooseFragment(Constant.FRAGMENT_UNSUBSCRIBE);
         } else if ((content.contains("一分")
                 || content.contains("二分")
@@ -149,13 +168,27 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
                 || content.contains("三分")
                 || content.contains("四分")
                 || content.contains("五分")) && checkOut) {
-            startSpeak(getString(R.string.answer_unsubscribe_end));
+            text = getString(R.string.answer_unsubscribe_end);
             checkOut = false;
             chooseFragment(Constant.FRAGMENT_MAIN);
         } else if (content.contains("谢谢")) {
-            startSpeak("不客气");
+            text = "不客气";
+            chooseFragment(Constant.FRAGMENT_MAIN);
+        } else if (content.contains("退出") || content.contains("返回")) {
+            chooseFragment(Constant.FRAGMENT_MAIN);
         } else {
-            startSpeak(getString(R.string.answer_error));
+            if (!checkOut) {
+                text = getString(R.string.answer_error);
+                chooseFragment(Constant.FRAGMENT_MAIN);
+            } else {
+                text = getString(R.string.answer_error);
+            }
+        }
+        if (!TextUtils.isEmpty(text)) {
+            startSpeak(text);
+        }
+        if (!TextUtils.isEmpty(content)) {
+            showToast(content);
         }
         WakeupManager.getInstance(this).startWakeup(this);
         lottieAnimationView.cancelAnimation();
@@ -193,8 +226,11 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
                 fragmentHelper.switchFragment(mealFragment);
                 break;
             case Constant.FRAGMENT_CLEAN_DNDST:
-                if (cleanAndDndstFragment == null)
+                if (cleanAndDndstFragment == null) {
                     cleanAndDndstFragment = CleanAndDndstFragment.newInstance(status);
+                } else {
+                    cleanAndDndstFragment.setStatus(status);
+                }
                 fragmentHelper.switchFragment(cleanAndDndstFragment);
                 break;
             case Constant.FRAGMENT_LIGHT_OUT:
@@ -230,12 +266,13 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
                 }
                 fragmentHelper.switchFragment(videoFragment);
                 break;
-
         }
     }
 
     @Override
     public void wakeupSuccess() {
+        wakeUpAndUnlock(getApplicationContext());
+        ivSleep.setVisibility(View.INVISIBLE);
         lottieAnimationView.playAnimation();
         WakeupManager.getInstance(this).cancelWakeup();
         RobotManager.getInstance().setVoiceState(true);
@@ -253,7 +290,14 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
         if (isWelcome) {
             isWelcome = false;
             WakeupManager.getInstance(this).startWakeup(this);
+        } else if (checkOut) {
+            WakeupManager.getInstance(this).cancelWakeup();
+            RobotManager.getInstance().startRecognizing(this);
+        } else if (isSleep) {
+            isSleep = false;
+            screenOff();
         }
+        hideToast();
     }
 
 
@@ -262,6 +306,9 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
     public void setWelcome(boolean isWelcome) {
         this.isWelcome = isWelcome;
     }
+
+    private boolean isSleep = false;
+
 
     private String mWeatherInfo;
     private String mWeather;
@@ -277,7 +324,7 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e("weather", "网络错误");
-                mWeatherInfo = "网络错误";
+                mWeatherInfo = "南京天气,小雨,东北风4-5级,温度,4℃~8℃";
             }
 
             @Override
@@ -287,7 +334,7 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
                         WeatherBean weather = (WeatherBean) JsonTools.stringToObject(response.body().string(), WeatherBean.class);
                         if (weather.getError_code() == 0 && TextUtils.equals(weather.getResultcode(), "200")) {
                             Log.e("weather", weather.getResult().getToday().getDressing_advice());
-                            mWeatherInfo = "南京明天天气" + "," + weather.getResult().getFuture().get(0).getWeather() + ","
+                            mWeatherInfo = "南京天气" + "," + weather.getResult().getFuture().get(0).getWeather() + ","
                                     + weather.getResult().getFuture().get(0).getWind() + ","
                                     + "温度" + ","
                                     + weather.getResult().getFuture().get(0).getTemperature();
@@ -297,12 +344,12 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
                             mTemperature = weather.getResult().getFuture().get(0).getTemperature();
                             timestamp = stringToTimestamp(weather.getResult().getFuture().get(0).getDate());
                         } else {
-                            mWeatherInfo = "网络错误";
+                            mWeatherInfo = "南京天气,小雨,东北风4-5级,温度,4℃~8℃";
                             Log.e("weather", "网络错误");
                         }
                     }
                 } else {
-                    mWeatherInfo = "网络错误";
+                    mWeatherInfo = "南京天气,小雨,东北风4-5级,温度,4℃~8℃";
                     Log.e("weather", "网络错误");
                 }
                 if (response.body() != null) {
@@ -322,4 +369,72 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
         }
         return System.currentTimeMillis();
     }
+
+    protected void hideBottomUIMenu() {
+        //隐藏虚拟按键，并且全屏
+        if (Build.VERSION.SDK_INT > 11 && Build.VERSION.SDK_INT < 19) { // lower api
+            View v = this.getWindow().getDecorView();
+            v.setSystemUiVisibility(View.GONE);
+        } else if (Build.VERSION.SDK_INT >= 19) {
+            //for new api versions.
+            View decorView = getWindow().getDecorView();
+            int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                    | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY | View.SYSTEM_UI_FLAG_FULLSCREEN;
+            decorView.setSystemUiVisibility(uiOptions);
+        }
+    }
+
+    public void showToast(String context) {
+        tvToast.setText(context);
+        tvToast.setVisibility(View.VISIBLE);
+    }
+
+    public void hideToast() {
+        tvToast.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                tvToast.setVisibility(View.INVISIBLE);
+            }
+        }, 2000);
+    }
+
+
+    /**
+     * 唤醒手机屏幕并解锁
+     */
+    public void wakeUpAndUnlock(Context context) {
+        // 获取电源管理器对象
+        PowerManager pm = (PowerManager) context
+                .getSystemService(Context.POWER_SERVICE);
+        boolean screenOn = pm.isScreenOn();
+        if (!screenOn) {
+            // 获取PowerManager.WakeLock对象,后面的参数|表示同时传入两个值,最后的是LogCat里用的Tag
+            PowerManager.WakeLock wl = pm.newWakeLock(
+                    PowerManager.ACQUIRE_CAUSES_WAKEUP |
+                            PowerManager.SCREEN_BRIGHT_WAKE_LOCK, "bright");
+            wl.acquire(10000); // 点亮屏幕
+            wl.release(); // 释放
+        }
+        //        // 屏幕解锁
+        KeyguardManager keyguardManager = (KeyguardManager) context
+                .getSystemService(Context.KEYGUARD_SERVICE);
+        KeyguardManager.KeyguardLock keyguardLock = keyguardManager.newKeyguardLock("unLock");
+        //        // 屏幕锁定
+        //        keyguardLock.reenableKeyguard();
+        //        keyguardLock.disableKeyguard(); // 解锁
+    }
+
+    private void screenOff() {
+        DevicePolicyManager policyManager = (DevicePolicyManager) getSystemService(Context.DEVICE_POLICY_SERVICE);
+        ComponentName adminReceiver = new ComponentName(this, ScreenOffAdminReceiver.class);
+        boolean admin = policyManager.isAdminActive(adminReceiver);
+        if (admin) {
+            //            isScreenOn = false;
+            policyManager.lockNow();
+        } else {
+            Toast.makeText(this, "没有设备管理权限",
+                    Toast.LENGTH_LONG).show();
+        }
+    }
+
 }
