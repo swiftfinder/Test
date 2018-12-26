@@ -41,7 +41,7 @@
         android:layout_height="267dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="85dp"
-        android:src="@drawable/img_hotel_bg"/>
+        android:src="@drawable/image_news"/>
 
     <TextView
         android:id="@+id/tv_name"
@@ -94,30 +94,30 @@
 
         <ImageView
             android:id="@+id/iv_left"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/icon_sunny"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_left"/>
 
         <ImageView
             android:id="@+id/iv_stop"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="50dp"
             android:layout_marginRight="50dp"
-            android:src="@drawable/icon_sunny"/>
+            android:src="@drawable/icon_stop"/>
 
         <ImageView
             android:id="@+id/iv_finish"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginRight="50dp"
-            android:src="@drawable/icon_sunny"/>
+            android:src="@drawable/icon_close"/>
 
         <ImageView
             android:id="@+id/iv_right"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/icon_sunny"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_right"/>
     </LinearLayout>
 
 

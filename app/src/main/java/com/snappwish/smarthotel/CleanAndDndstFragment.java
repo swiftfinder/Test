@@ -50,7 +50,8 @@ public class CleanAndDndstFragment extends MyBaseFragment {
 
     @Override
     protected void initData() {
-
+        int status = getArguments().getInt("status");
+        setStatus(status);
     }
 
     @Override
@@ -58,10 +59,7 @@ public class CleanAndDndstFragment extends MyBaseFragment {
 
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        int status = getArguments().getInt("status");
+    public void setStatus(int status) {
         switch (status) {
             case 0:
                 ivClean.setImageResource(R.drawable.image_clean_close);
