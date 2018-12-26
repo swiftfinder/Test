@@ -293,8 +293,14 @@ public class DateUtils {
      * @return str
      */
     public static String nowTimeDetail2() {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日 E",Locale.CHINA);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日 E", Locale.CHINA);
         String str = format.format(System.currentTimeMillis());
+        return str;
+    }
+
+    public static String nowTimeDetail2plus() {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日 E", Locale.CHINA);
+        String str = format.format(System.currentTimeMillis() + 24 * 60 * 60 * 1000);
         return str;
     }
 

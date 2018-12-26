@@ -15,7 +15,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:paddingTop="18dp"
-            android:text="10~20"
+            android:text="@string/temprature"
             android:textColor="@android:color/white"
             android:textSize="119sp" />
 
@@ -44,13 +44,12 @@
 
     </RelativeLayout>
 
-    <TextClock
+    <TextView
         android:id="@+id/tv_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/rl_weather"
         android:layout_centerHorizontal="true"
-        android:format24Hour="yyyy年MM月dd日 E"
         android:textColor="@android:color/white"
         android:textSize="30sp" />
 
@@ -77,7 +76,7 @@
             android:layout_centerInParent="true"
             android:layout_marginLeft="39dp"
             android:layout_marginRight="39dp"
-            android:drawableLeft="@drawable/icon_sunny"
+            android:drawableLeft="@drawable/icon_windy"
             android:drawablePadding="14dp"
             android:gravity="center"
             android:text="西北风2~3级"
@@ -91,10 +90,10 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_toRightOf="@+id/tv_windy"
-            android:drawableLeft="@drawable/icon_sunny"
+            android:drawableLeft="@drawable/icon_humidity"
             android:drawablePadding="14dp"
             android:gravity="center"
-            android:text="湿度70%"
+            android:text="湿度60%"
             android:textColor="@android:color/white"
             android:textSize="22sp" />
 
@@ -104,10 +103,10 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_toLeftOf="@+id/tv_windy"
-            android:drawableLeft="@drawable/icon_sunny"
+            android:drawableLeft="@drawable/icon_temperature"
             android:drawablePadding="14dp"
             android:gravity="center"
-            android:text="室内22℃"
+            android:text="室内温度24℃"
             android:textColor="@android:color/white"
             android:textSize="22sp" />
 
