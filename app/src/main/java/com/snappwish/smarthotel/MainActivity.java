@@ -145,7 +145,7 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
         } else if (content.contains("打扫") || content.contains("卫生")) {
             text = getString(R.string.answer_clean_hotel);
             chooseFragment(Constant.FRAGMENT_CLEAN_DNDST, 1);
-        } else if (content.contains("请勿打扰")) {
+        } else if (content.contains("打扰") ) {
             text = getString(R.string.answer_not_dndst);
             chooseFragment(Constant.FRAGMENT_CLEAN_DNDST, 2);
         } else if (content.contains("关灯") || content.contains("睡觉") || content.contains("休息")) {
@@ -156,7 +156,7 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
             checkOut = true;
             text = getString(R.string.answer_checkout);
             chooseFragment(Constant.FRAGMENT_CHECK_OUT);
-        } else if (content.contains("确认") && checkOut) {
+        } else if ((content.contains("确认") || content.contains("确定")) && checkOut) {
             text = getString(R.string.answer_pay_goods);
             chooseFragment(Constant.FRAGMENT_PAY_GOODS);
         } else if (content.contains("没有") && checkOut) {
@@ -170,11 +170,12 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
                 || content.contains("五分")) && checkOut) {
             text = getString(R.string.answer_unsubscribe_end);
             checkOut = false;
-            chooseFragment(Constant.FRAGMENT_MAIN);
+//            chooseFragment(Constant.FRAGMENT_MAIN);
         } else if (content.contains("谢谢")) {
             text = "不客气";
             chooseFragment(Constant.FRAGMENT_MAIN);
         } else if (content.contains("退出") || content.contains("返回")) {
+            text = "好的";
             chooseFragment(Constant.FRAGMENT_MAIN);
         } else {
             if (!checkOut) {
@@ -293,7 +294,7 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
             screenOff();
         }
         hideToast();
-        toMainFragment();
+//        toMainFragment();
     }
 
 
@@ -433,23 +434,23 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
         }
     }
 
-    private CountDownTimer countDownTimer;
-
-    private void toMainFragment() {
-        if (countDownTimer != null) {
-            countDownTimer.cancel();
-        }
-        countDownTimer = new CountDownTimer(300000, 1000) {
-
-            @Override
-            public void onTick(long millisUntilFinished) {
-            }
-
-            @Override
-            public void onFinish() {
-                chooseFragment(Constant.FRAGMENT_MAIN);
-            }
-        }.start();
-    }
+//    private CountDownTimer countDownTimer;
+//
+//    private void toMainFragment() {
+//        if (countDownTimer != null) {
+//            countDownTimer.cancel();
+//        }
+//        countDownTimer = new CountDownTimer(300000, 1000) {
+//
+//            @Override
+//            public void onTick(long millisUntilFinished) {
+//            }
+//
+//            @Override
+//            public void onFinish() {
+//                chooseFragment(Constant.FRAGMENT_MAIN);
+//            }
+//        }.start();
+//    }
 
 }
