@@ -2,6 +2,8 @@ package com.snappwish.smarthotel;
 
 import android.Manifest;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
+import android.util.Log;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
@@ -11,13 +13,25 @@ import com.snappwish.base_core.permission.PermissionFailure;
 import com.snappwish.base_core.permission.PermissionHelper;
 import com.snappwish.base_core.permission.PermissionSuccess;
 import com.snappwish.smarthotel.base.MyBaseActivity;
+import com.snappwish.smarthotel.bean.JsonTools;
+import com.snappwish.smarthotel.bean.WeatherBean;
 import com.snappwish.smarthotel.speech.RobotManager;
 import com.snappwish.smarthotel.speech.STTListener;
 import com.snappwish.smarthotel.speech.TTSEngine;
 import com.snappwish.smarthotel.speech.WakeupListener;
 import com.snappwish.smarthotel.speech.WakeupManager;
 
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.concurrent.TimeUnit;
+
 import butterknife.BindView;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 /**
  * Created by jinjin on 2018/12/22.
@@ -57,7 +71,7 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
 
     @Override
     protected void initTitle() {
-
+        queryWeather();
     }
 
     @Override
@@ -102,7 +116,7 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
     @Override
     public void sttSuccess(String content) {
         if (content.contains("天气")) {
-            startSpeak("明天南京天气晴朗，有微风，温度2~9摄氏度");
+            startSpeak(mWeatherInfo);
             chooseFragment(Constant.FRAGMENT_WEATHER);
         } else if (content.contains("早餐") || content.contains("吃") || content.contains("早饭")) {
             startSpeak(getString(R.string.answer_meal));
@@ -195,7 +209,8 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
                 fragmentHelper.switchFragment(checkOutFragment);
                 break;
             case Constant.FRAGMENT_WEATHER:
-                if (weatherFragment == null) weatherFragment = WeatherFragment.newInstance();
+                if (weatherFragment == null)
+                    weatherFragment = WeatherFragment.newInstance(mWeather, mTemperature, mWind, timestamp);
                 fragmentHelper.switchFragment(weatherFragment);
                 break;
             case Constant.FRAGMENT_UNSUBSCRIBE:
@@ -248,4 +263,63 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
         this.isWelcome = isWelcome;
     }
 
+    private String mWeatherInfo;
+    private String mWeather;
+    private String mWind;
+    private String mTemperature;
+    private long timestamp;
+
+    private void queryWeather() {
+        OkHttpClient client = new OkHttpClient.Builder().connectTimeout(5000, TimeUnit.MILLISECONDS).build();
+        final Request request = new Request.Builder().get().url("http://v.juhe.cn/weather/index?format=2&cityname=南京&key=5fa34b41f79b752cf943d9c86399fbfc").build();
+        Call call = client.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.e("weather", "网络错误");
+                mWeatherInfo = "网络错误";
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    if (response.body() != null) {
+                        WeatherBean weather = (WeatherBean) JsonTools.stringToObject(response.body().string(), WeatherBean.class);
+                        if (weather.getError_code() == 0 && TextUtils.equals(weather.getResultcode(), "200")) {
+                            Log.e("weather", weather.getResult().getToday().getDressing_advice());
+                            mWeatherInfo = "南京明天天气" + "," + weather.getResult().getFuture().get(0).getWeather() + ","
+                                    + weather.getResult().getFuture().get(0).getWind() + ","
+                                    + "温度" + ","
+                                    + weather.getResult().getFuture().get(0).getTemperature();
+
+                            mWeather = weather.getResult().getFuture().get(0).getWeather();
+                            mWind = weather.getResult().getFuture().get(0).getWind();
+                            mTemperature = weather.getResult().getFuture().get(0).getTemperature();
+                            timestamp = stringToTimestamp(weather.getResult().getFuture().get(0).getDate());
+                        } else {
+                            mWeatherInfo = "网络错误";
+                            Log.e("weather", "网络错误");
+                        }
+                    }
+                } else {
+                    mWeatherInfo = "网络错误";
+                    Log.e("weather", "网络错误");
+                }
+                if (response.body() != null) {
+                    response.body().close();
+                }
+
+            }
+        });
+    }
+
+    private long stringToTimestamp(String date) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+        try {
+            return sdf.parse(date).getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return System.currentTimeMillis();
+    }
 }
