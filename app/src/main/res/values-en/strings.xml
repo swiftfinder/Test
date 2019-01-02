@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">智慧酒店</string>
+    <string name="app_name">SmartHotel</string>
     <string name="air_condition">空气质量</string>
     <string name="bad_air_condition">中度污染</string>
     <string name="unsubscribe_hotel">张先生，\n已为您办理退房手续。\n欢迎下次光临！</string>
@@ -30,19 +30,19 @@
     <string name="welcome_bed">豪华大床房（含双早）</string>
     <string name="welcome_start_time">入住时间 2018年12月25日</string>
     <string name="welcome_end_time">离店时间 2018年12月27日</string>
-    <string name="speak_welcome">张先生您好，欢迎入住希尔顿酒店。我是您的专属智能管家。需要叫醒服务吗？起床后希望打开窗帘并收听今日要闻吗？想知道早餐几点结束吗？您只需要说"你好管家"，我就会为您服务。我们先体验一下，请试着对我说，"你好管家，明天天气如何？</string>
-    <string name="answer_meal">今天早餐10点结束。现在距离早餐结束还有28分钟，如需用早餐，请尽快前往一楼电梯左边的中餐厅。</string>
-    <string name="answer_clean_hotel">好的，我们将安排保洁阿姨尽快打扫您的房间。</string>
-    <string name="answer_not_dndst">好的，请勿打扰模式已经设置好，下午3点将自动取消</string>
-    <string name="ansewer_good_night">好的，所有灯光已关闭，晚安</string>
-    <string name="answer_checkout">好的，我将为您安排退房事宜。您在2018年12月25日星期三入住，今日退房，一共两晚，房费1800元。您确认此次账单信息吗？</string>
-    <string name="answer_pay_goods">好的，屏幕上列出了房间内可消费商品，请问您消费了哪些商品？</string>
-    <string name="answer_unsubscribe">好的，退房手续已办好，您可将房卡留在房间。如果需要开发票，请用手机扫描屏幕上的二维码，并提供开票信息，前台将为您准备好增值税发票，您下楼自取即可。对于此次住宿体验，如果5分表示满意，1分表示不满意，请问您给我们打几分？</string>
+    <string name="speak_welcome">Dear Mr. Smith, welcome to Las Vegas Hotel. I am your personal A.I. attendant. </string>
+    <string name="answer_meal">The breakfast buffet ends at 10 am today. There are still 28 minutes left.</string>
+    <string name="answer_clean_hotel">Okay, a housekeeper is on her way.</string>
+    <string name="answer_not_dndst">Okay, we have setup Do Not Disturb sign for you.</string>
+    <string name="ansewer_good_night">Okay, all lights are turned off, good night!</string>
+    <string name="answer_checkout">Sure. I will help arrange express checkout for you. You checked in on January 5th, and today is January 7th, so you will pay for 2 nights at 300 dollars in total. Can you confirm the bill?</string>
+    <string name="answer_pay_goods">Great. Did you consume any merchandise listed on the screen in your room?</string>
+    <string name="answer_unsubscribe">Got it. The bill will be paid with your credit card. The express check-out is done now.In the scale of 1 to 5, how satisfied are you with your stay in our hotel this time?</string>
     <string name="answer_error">哎呀，这个问题好像太难了！</string>
-    <string name="answer_video">好的，下面是今日要闻。</string>
-    <string name="answer_unsubscribe_end">谢谢！离开房间时请不要遗忘您的个人物品，期待您下次再次选择我们酒店！</string>
+    <string name="answer_video">Okay, here is today\'s headlines.</string>
+    <string name="answer_unsubscribe_end">Thank you! Looking forward to your next visit. Don\'t forget your belongings when leaving the room. Have a nice day!</string>
     <string name="inside_temprature">室内%s</string>
     <string name="temprature">%1$s~%2$s</string>
-    <string name="answer_thank_you">不客气</string>
-    <string name="answer_okay">好的</string>
+    <string name="answer_thank_you">You are welcome</string>
+    <string name="answer_okay">okay</string>
 </resources>

@@ -26,7 +26,7 @@ public class STTEngine {
     private RecognizerDialog iatDialog;
     private boolean mHasDialog;
 
-    public STTEngine(Context context, boolean hasDialog) {
+    public STTEngine(Context context, boolean hasDialog, String language) {
         mHasDialog = hasDialog;
         if (hasDialog) {
             iatDialog = new RecognizerDialog(context, mInitListener);
@@ -34,10 +34,10 @@ public class STTEngine {
         } else {
             mIat = SpeechRecognizer.createRecognizer(context, mInitListener);
             mIat.setParameter(SpeechConstant.RESULT_TYPE, "json");
-            mIat.setParameter(SpeechConstant.LANGUAGE, Constant.LANGUAGE);
+            mIat.setParameter(SpeechConstant.LANGUAGE, language.contains("en") ? Constant.LANGUAGE_EN : Constant.LANGUAGE_CN);
             mIat.setParameter(SpeechConstant.VAD_BOS, "4000");
-//            mIat.setParameter(SpeechConstant.ENGINE_TYPE, "local");
-//            mIat.setParameter(ResourceUtil.ASR_RES_PATH, getResourcePath(context));
+            //            mIat.setParameter(SpeechConstant.ENGINE_TYPE, "local");
+            //            mIat.setParameter(ResourceUtil.ASR_RES_PATH, getResourcePath(context));
         }
 
     }
@@ -116,7 +116,7 @@ public class STTEngine {
         }
     }
 
-    private String getResourcePath(Context context){
+    private String getResourcePath(Context context) {
         StringBuffer tempBuffer = new StringBuffer();
         //识别通用资源
         tempBuffer.append(ResourceUtil.generateResourcePath(context, ResourceUtil.RESOURCE_TYPE.assets, "iat/common.jet"));
