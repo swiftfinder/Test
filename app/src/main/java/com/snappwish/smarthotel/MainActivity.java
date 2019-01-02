@@ -34,6 +34,7 @@ import com.snappwish.smarthotel.speech.WakeupManager;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
@@ -73,6 +74,7 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
     private UnsubscribeFragment unsubscribeFragment;
     private PayGoodsFragment payGoodsFragment;
     private VideoFragment videoFragment;
+    private String language;
 
 
     @Override
@@ -96,8 +98,9 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
                 .requestCode(PERMISSION_RECORD)
                 .permissions(Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 .request();
-
-        RobotManager.getInstance().initSTTEngine(this, false);
+        Locale locale = getResources().getConfiguration().locale;
+        language = locale.getLanguage();
+        RobotManager.getInstance().initSTTEngine(this, false, language);
         RobotManager.getInstance().initTTSEngine(this, this);
         chooseFragment(Constant.FRAGMENT_MAIN);
     }
@@ -134,37 +137,47 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
     public void sttSuccess(String speaker) {
         String content = "";
         if (!TextUtils.isEmpty(speaker)) {
-            content = speaker.replaceAll(" ", "");
+            //                    content = speaker.replaceAll(" ", "");
+            content = speaker.toLowerCase();
         }
         Log.e(TAG, content);
         String text = "";
-        if (content.contains("天气")) {
+        if (content.contains("天气")
+                || content.contains("weather")) {
             text = mWeatherInfo;
             chooseFragment(Constant.FRAGMENT_WEATHER);
-        } else if (content.contains("早餐") || content.contains("吃") || content.contains("早饭")) {
+        } else if (content.contains("早餐") || content.contains("吃") || content.contains("早饭")
+                || content.contains("breakfast") || content.contains("eat")) {
             text = getString(R.string.answer_meal);
             chooseFragment(Constant.FRAGMENT_MEAL);
-        } else if (content.contains("新闻")) {
+        } else if (content.contains("新闻")
+                || content.contains("news") || content.contains("headline")) {
             text = getString(R.string.answer_video);
             chooseFragment(Constant.FRAGMENT_VIDEO);
-        } else if (content.contains("打扫") || content.contains("卫生")) {
+        } else if (content.contains("打扫") || content.contains("卫生")
+                || content.contains("make up the room")) {
             text = getString(R.string.answer_clean_hotel);
             chooseFragment(Constant.FRAGMENT_CLEAN_DNDST, 1);
-        } else if (content.contains("打扰")) {
+        } else if (content.contains("打扰")
+                || content.contains("disturb")) {
             text = getString(R.string.answer_not_dndst);
             chooseFragment(Constant.FRAGMENT_CLEAN_DNDST, 2);
-        } else if (content.contains("关灯") || content.contains("睡觉") || content.contains("休息")) {
+        } else if (content.contains("关灯") || content.contains("睡觉") || content.contains("休息")
+                || content.contains("sleep") || content.contains("turn off")) {
             isSleep = true;
             text = getString(R.string.ansewer_good_night);
             ivSleep.setVisibility(View.VISIBLE);
-        } else if (content.contains("退房")) {
+        } else if (content.contains("退房")
+                || content.contains("check out")) {
             checkOut = true;
             text = getString(R.string.answer_checkout);
             chooseFragment(Constant.FRAGMENT_CHECK_OUT);
-        } else if ((content.contains("确认") || content.contains("确定")) && checkOut) {
+        } else if ((content.contains("确认") || content.contains("确定")
+                || content.contains("yes"))
+                && checkOut) {
             text = getString(R.string.answer_pay_goods);
             chooseFragment(Constant.FRAGMENT_PAY_GOODS);
-        } else if (content.contains("没有") && checkOut) {
+        } else if ((content.contains("没有") || content.contains("no")) && checkOut) {
             text = getString(R.string.answer_unsubscribe);
             chooseFragment(Constant.FRAGMENT_UNSUBSCRIBE);
         } else if ((content.contains("一分")
@@ -172,15 +185,17 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
                 || content.contains("两分")
                 || content.contains("三分")
                 || content.contains("四分")
-                || content.contains("五分")) && checkOut) {
+                || content.contains("五分")
+                || content.contains("scale")) && checkOut) {
             text = getString(R.string.answer_unsubscribe_end);
             checkOut = false;
             //            chooseFragment(Constant.FRAGMENT_MAIN);
-        } else if (content.contains("谢谢")) {
-            text = "不客气";
+        } else if (content.contains("谢谢") || content.contains("thank you")) {
+            text = getString(R.string.answer_thank_you);
             chooseFragment(Constant.FRAGMENT_MAIN);
-        } else if (content.contains("退出") || content.contains("返回")) {
-            text = "好的";
+        } else if (content.contains("退出") || content.contains("返回")
+                || content.contains("cancel") || content.contains("back")) {
+            text = getString(R.string.answer_okay);
             chooseFragment(Constant.FRAGMENT_MAIN);
         } else {
             if (!checkOut) {
@@ -277,7 +292,8 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
         lottieAnimationView.playAnimation();
         WakeupManager.getInstance(this).cancelWakeup();
         RobotManager.getInstance().setVoiceState(true);
-        RobotManager.getInstance().setVoiceType(Constant.LANGUAGE_USER);
+        RobotManager.getInstance().setVoiceType(language.contains("en") ?
+                Constant.LANGUAGE_USER_EN : Constant.LANGUAGE_USER_CN);
         RobotManager.getInstance().startRecognizing(this);
     }
 

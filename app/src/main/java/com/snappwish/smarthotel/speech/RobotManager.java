@@ -37,8 +37,8 @@ public class RobotManager {
      *
      * @param context
      */
-    public void initSTTEngine(Context context, boolean hasDialog) {
-        mSTTEngine = new STTEngine(context, hasDialog);
+    public void initSTTEngine(Context context, boolean hasDialog, String language) {
+        mSTTEngine = new STTEngine(context, hasDialog, language);
     }
 
     /**
@@ -49,8 +49,6 @@ public class RobotManager {
     public void initTTSEngine(Context context, TTSEngine.TtsListener listener) {
         mTTSEngine = new TTSEngine(context);
         mTTSEngine.setListener(listener);
-        RobotManager.getInstance().setVoiceState(true);
-        RobotManager.getInstance().setVoiceType(Constant.LANGUAGE_USER);
     }
 
     public void startRecognizing(STTListener sttListener) {
