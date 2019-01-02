@@ -13,6 +13,8 @@ import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.ui.RecognizerDialog;
 import com.iflytek.cloud.ui.RecognizerDialogListener;
+import com.iflytek.cloud.util.ResourceUtil;
+import com.snappwish.smarthotel.Constant;
 
 /**
  * @author lishibo
@@ -32,8 +34,10 @@ public class STTEngine {
         } else {
             mIat = SpeechRecognizer.createRecognizer(context, mInitListener);
             mIat.setParameter(SpeechConstant.RESULT_TYPE, "json");
-            mIat.setParameter(SpeechConstant.LANGUAGE, "zh_cn");
+            mIat.setParameter(SpeechConstant.LANGUAGE, Constant.LANGUAGE);
             mIat.setParameter(SpeechConstant.VAD_BOS, "4000");
+//            mIat.setParameter(SpeechConstant.ENGINE_TYPE, "local");
+//            mIat.setParameter(ResourceUtil.ASR_RES_PATH, getResourcePath(context));
         }
 
     }
@@ -110,5 +114,15 @@ public class STTEngine {
                 }
             });
         }
+    }
+
+    private String getResourcePath(Context context){
+        StringBuffer tempBuffer = new StringBuffer();
+        //识别通用资源
+        tempBuffer.append(ResourceUtil.generateResourcePath(context, ResourceUtil.RESOURCE_TYPE.assets, "iat/common.jet"));
+        tempBuffer.append(";");
+        tempBuffer.append(ResourceUtil.generateResourcePath(context, ResourceUtil.RESOURCE_TYPE.assets, "iat/sms_16k.jet"));
+        //识别8k资源-使用8k的时候请解开注释
+        return tempBuffer.toString();
     }
 }

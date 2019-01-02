@@ -131,7 +131,12 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
     private boolean checkOut = false;
 
     @Override
-    public void sttSuccess(String content) {
+    public void sttSuccess(String speaker) {
+        String content = "";
+        if (!TextUtils.isEmpty(speaker)) {
+            content = speaker.replaceAll(" ", "");
+        }
+        Log.e(TAG, content);
         String text = "";
         if (content.contains("天气")) {
             text = mWeatherInfo;
@@ -145,7 +150,7 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
         } else if (content.contains("打扫") || content.contains("卫生")) {
             text = getString(R.string.answer_clean_hotel);
             chooseFragment(Constant.FRAGMENT_CLEAN_DNDST, 1);
-        } else if (content.contains("打扰") ) {
+        } else if (content.contains("打扰")) {
             text = getString(R.string.answer_not_dndst);
             chooseFragment(Constant.FRAGMENT_CLEAN_DNDST, 2);
         } else if (content.contains("关灯") || content.contains("睡觉") || content.contains("休息")) {
@@ -170,7 +175,7 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
                 || content.contains("五分")) && checkOut) {
             text = getString(R.string.answer_unsubscribe_end);
             checkOut = false;
-//            chooseFragment(Constant.FRAGMENT_MAIN);
+            //            chooseFragment(Constant.FRAGMENT_MAIN);
         } else if (content.contains("谢谢")) {
             text = "不客气";
             chooseFragment(Constant.FRAGMENT_MAIN);
@@ -272,7 +277,7 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
         lottieAnimationView.playAnimation();
         WakeupManager.getInstance(this).cancelWakeup();
         RobotManager.getInstance().setVoiceState(true);
-        RobotManager.getInstance().setVoiceType("xiaoyan");
+        RobotManager.getInstance().setVoiceType(Constant.LANGUAGE_USER);
         RobotManager.getInstance().startRecognizing(this);
     }
 
@@ -294,7 +299,7 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
             screenOff();
         }
         hideToast();
-//        toMainFragment();
+        //        toMainFragment();
     }
 
 
@@ -434,23 +439,23 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
         }
     }
 
-//    private CountDownTimer countDownTimer;
-//
-//    private void toMainFragment() {
-//        if (countDownTimer != null) {
-//            countDownTimer.cancel();
-//        }
-//        countDownTimer = new CountDownTimer(300000, 1000) {
-//
-//            @Override
-//            public void onTick(long millisUntilFinished) {
-//            }
-//
-//            @Override
-//            public void onFinish() {
-//                chooseFragment(Constant.FRAGMENT_MAIN);
-//            }
-//        }.start();
-//    }
+    //    private CountDownTimer countDownTimer;
+    //
+    //    private void toMainFragment() {
+    //        if (countDownTimer != null) {
+    //            countDownTimer.cancel();
+    //        }
+    //        countDownTimer = new CountDownTimer(300000, 1000) {
+    //
+    //            @Override
+    //            public void onTick(long millisUntilFinished) {
+    //            }
+    //
+    //            @Override
+    //            public void onFinish() {
+    //                chooseFragment(Constant.FRAGMENT_MAIN);
+    //            }
+    //        }.start();
+    //    }
 
 }

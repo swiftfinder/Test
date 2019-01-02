@@ -7,6 +7,7 @@ import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
+import com.snappwish.smarthotel.Constant;
 
 /**
  * @author lishibo
@@ -22,6 +23,8 @@ public class TTSEngine {
         mTts.setParameter(SpeechConstant.ENGINE_TYPE, SpeechConstant.TYPE_CLOUD);
         mTts.setParameter(SpeechConstant.SPEED, "50");
         mTts.setParameter(SpeechConstant.VOLUME, "50");
+//        mTts.setParameter(SpeechConstant.LANGUAGE, Constant.LANGUAGE);
+//        mTts.setParameter(SpeechConstant.ACCENT, null);
     }
 
     /**

@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
+import com.snappwish.smarthotel.Constant;
 
 /**
  * @author lishibo
@@ -49,7 +50,7 @@ public class RobotManager {
         mTTSEngine = new TTSEngine(context);
         mTTSEngine.setListener(listener);
         RobotManager.getInstance().setVoiceState(true);
-        RobotManager.getInstance().setVoiceType("xiaoyan");
+        RobotManager.getInstance().setVoiceType(Constant.LANGUAGE_USER);
     }
 
     public void startRecognizing(STTListener sttListener) {
