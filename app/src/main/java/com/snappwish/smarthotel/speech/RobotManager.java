@@ -46,8 +46,11 @@ public class RobotManager {
      *
      * @param context context
      */
-    public void initTTSEngine(Context context, TTSEngine.TtsListener listener) {
+    public void initTTSEngine(Context context, TTSEngine.TtsListener listener, String language) {
         mTTSEngine = new TTSEngine(context);
+        RobotManager.getInstance().setVoiceState(true);
+        RobotManager.getInstance().setVoiceType(language.contains("en") ?
+                Constant.LANGUAGE_USER_EN : Constant.LANGUAGE_USER_CN);
         mTTSEngine.setListener(listener);
     }
 

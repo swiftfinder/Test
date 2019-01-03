@@ -23,28 +23,14 @@ public class WeatherFragment extends MyBaseFragment {
     private static final String TIMESTAMP = "timestamp";
     @BindView(R.id.tv_temperature)
     TextView tvTemperature;
-    @BindView(R.id.tv_placeholder)
-    TextView tvPlaceholder;
     @BindView(R.id.tv_weather)
     TextView tvWeather;
-    @BindView(R.id.rl_weather)
-    RelativeLayout rlWeather;
     @BindView(R.id.tv_date)
     TextView tvDate;
     @BindView(R.id.iv_weather)
     ImageView ivWeather;
     @BindView(R.id.tv_windy)
     TextView tvWindy;
-    @BindView(R.id.tv_humidity)
-    TextView tvHumidity;
-    @BindView(R.id.tv_inside_temperature)
-    TextView tvInsideTemperature;
-    @BindView(R.id.rl_details)
-    RelativeLayout rlDetails;
-    @BindView(R.id.tv_air_condition)
-    TextView tvAirCondition;
-    @BindView(R.id.tv_air_bad_condition)
-    TextView tvAirBadCondition;
 
     public static WeatherFragment newInstance(String weather, String temperature, String wind, long timestamp) {
         Bundle args = new Bundle();
@@ -69,6 +55,10 @@ public class WeatherFragment extends MyBaseFragment {
 
     @Override
     protected void initData() {
+        tvDate.setText(DateUtils.nowTimeDetail2plus(getResources().getConfiguration().locale.getLanguage()));
+        if (getResources().getConfiguration().locale.getLanguage().contains("en")) {
+            return;
+        }
         if (getArguments() == null) {
             return;
         }
@@ -80,7 +70,6 @@ public class WeatherFragment extends MyBaseFragment {
         tvWeather.setText(weather);
         tvWindy.setText(wind);
         tvTemperature.setText(TextUtils.isEmpty(temperature) ? "-1~6" : temperature.replace("℃", ""));
-        tvDate.setText(DateUtils.nowTimeDetail2plus());
     }
 
     @Override

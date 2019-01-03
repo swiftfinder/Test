@@ -42,7 +42,6 @@
     <string name="answer_video">好的，下面是今日要闻。</string>
     <string name="answer_unsubscribe_end">谢谢！离开房间时请不要遗忘您的个人物品，期待您下次再次选择我们酒店！</string>
     <string name="inside_temprature">室内%s</string>
-    <string name="temprature">%1$s~%2$s</string>
     <string name="answer_thank_you">不客气</string>
     <string name="answer_okay">好的</string>
 </resources>
