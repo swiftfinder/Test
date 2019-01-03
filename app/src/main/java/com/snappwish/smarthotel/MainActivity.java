@@ -101,7 +101,7 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
         Locale locale = getResources().getConfiguration().locale;
         language = locale.getLanguage();
         RobotManager.getInstance().initSTTEngine(this, false, language);
-        RobotManager.getInstance().initTTSEngine(this, this);
+        RobotManager.getInstance().initTTSEngine(this, this, language);
         chooseFragment(Constant.FRAGMENT_MAIN);
     }
 

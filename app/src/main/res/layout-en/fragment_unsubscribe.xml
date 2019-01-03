@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/ll_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp">
+
+        <ImageView
+            android:id="@+id/iv_qrcode"
+            android:layout_width="204dp"
+            android:layout_height="199dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="110dp"
+            android:src="@drawable/icon_qrcode"/>
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="2dp"
+            android:layout_height="320dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="81dp"
+            android:layout_marginTop="11dp"
+            android:layout_toRightOf="@id/iv_qrcode"
+            android:background="@drawable/image_line2"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="81dp"
+            android:layout_toRightOf="@id/view"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="2dp"
+                android:textStyle="bold"
+                android:text="@string/unsubscribe_hotel"
+                android:textColor="@android:color/white"
+                android:textSize="36sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:lineSpacingExtra="2dp"
+                android:text="@string/unsubscribe_hotel_2"
+                android:textColor="@android:color/white"
+                android:textSize="33sp"/>
+
+        </LinearLayout>
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/view_line"
+        android:layout_width="1051dp"
+        android:layout_height="2dp"
+        android:layout_below="@id/ll_text"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/image_line"/>
+
+
+    <LinearLayout
+        android:layout_width="896dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/view_line"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="64dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="42dp"
+            android:layout_weight="1"
+            android:background="@drawable/hotel_score"
+            android:drawableLeft="@drawable/icon_face_1"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:text="1 Score"
+            android:textColor="@android:color/white"
+            android:textSize="17sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="42dp"
+            android:layout_weight="1"
+            android:background="@drawable/hotel_score"
+            android:drawableLeft="@drawable/icon_face_2"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:text="2 Score"
+            android:textColor="@android:color/white"
+            android:textSize="17sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="42dp"
+            android:layout_weight="1"
+            android:background="@drawable/hotel_score"
+            android:drawableLeft="@drawable/icon_face_3"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:text="3 Score"
+            android:textColor="@android:color/white"
+            android:textSize="17sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="42dp"
+            android:layout_weight="1"
+            android:background="@drawable/hotel_score"
+            android:drawableLeft="@drawable/icon_face_4"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:text="4 Score"
+            android:textColor="@android:color/white"
+            android:textSize="17sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/hotel_score"
+            android:drawableLeft="@drawable/icon_face_5"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:text="5 Score"
+            android:textColor="@android:color/white"
+            android:textSize="17sp"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

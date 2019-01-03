@@ -298,9 +298,15 @@ public class DateUtils {
         return str;
     }
 
-    public static String nowTimeDetail2plus() {
+    public static String nowTimeDetail2plus(String language) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日 E", Locale.CHINA);
-        String str = format.format(System.currentTimeMillis() + 24 * 60 * 60 * 1000);
+        SimpleDateFormat format2 = new SimpleDateFormat("MM/dd/yyyy E");
+        String str = "";
+        if (language.contains("en")) {
+            str = format2.format(System.currentTimeMillis() + 24 * 60 * 60 * 1000);
+        } else {
+            str = format.format(System.currentTimeMillis() + 24 * 60 * 60 * 1000);
+        }
         return str;
     }
 

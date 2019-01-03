@@ -15,6 +15,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:paddingTop="18dp"
+            android:text="50-70"
             android:textColor="@android:color/white"
             android:textSize="119sp" />
 
@@ -24,7 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/tv_temperature"
-            android:text="℃"
+            android:text="℉"
             android:textColor="@android:color/white"
             android:textSize="60sp" />
 
@@ -37,7 +38,7 @@
             android:layout_marginLeft="16dp"
             android:layout_toRightOf="@+id/tv_placeholder"
             android:paddingTop="36dp"
-            android:text="(晴)"
+            android:text="(sunny)"
             android:textColor="@android:color/white"
             android:textSize="50sp" />
 
@@ -78,7 +79,7 @@
             android:drawableLeft="@drawable/icon_windy"
             android:drawablePadding="14dp"
             android:gravity="center"
-            android:text="西北风2~3级"
+            android:text="NW wind 2~3Lv"
             android:textColor="@android:color/white"
             android:textSize="22sp" />
 
@@ -92,7 +93,7 @@
             android:drawableLeft="@drawable/icon_humidity"
             android:drawablePadding="14dp"
             android:gravity="center"
-            android:text="湿度60%"
+            android:text="humidity 60%"
             android:textColor="@android:color/white"
             android:textSize="22sp" />
 
@@ -105,47 +106,11 @@
             android:drawableLeft="@drawable/icon_temperature"
             android:drawablePadding="14dp"
             android:gravity="center"
-            android:text="室内温度24℃"
+            android:text="indoor 75℉"
             android:textColor="@android:color/white"
             android:textSize="22sp" />
 
 
     </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/rl_details"
-        android:layout_marginTop="75dp">
-
-        <View
-            android:id="@+id/view"
-            android:layout_width="418dp"
-            android:layout_height="16dp"
-            android:layout_centerInParent="true"
-            android:layout_marginLeft="22dp"
-            android:layout_marginRight="22dp"
-            android:background="@drawable/air_quality_line" />
-
-        <TextView
-            android:id="@+id/tv_air_condition"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toLeftOf="@+id/view"
-            android:text="@string/air_condition"
-            android:textColor="@android:color/white"
-            android:textSize="15sp" />
-
-        <TextView
-            android:id="@+id/tv_air_bad_condition"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/view"
-            android:text="@string/bad_air_condition"
-            android:textColor="@android:color/white"
-            android:textSize="15sp" />
-
-    </RelativeLayout>
-
 
 </RelativeLayout>
