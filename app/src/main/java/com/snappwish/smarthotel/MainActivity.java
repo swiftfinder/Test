@@ -5,6 +5,7 @@ import android.app.KeyguardManager;
 import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.CountDownTimer;
 import android.os.PowerManager;
@@ -84,7 +85,7 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
 
     @Override
     protected void initTitle() {
-        queryWeather();
+//        queryWeather();
     }
 
     @Override
@@ -103,6 +104,11 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
         RobotManager.getInstance().initSTTEngine(this, false, language);
         RobotManager.getInstance().initTTSEngine(this, this, language);
         chooseFragment(Constant.FRAGMENT_MAIN);
+        if (language.contains("en")) {
+            mWeatherInfo = "Tomorrow will be sunny, with highest temperature at 55 degrees Fahrenheit";
+        } else {
+            queryWeather();
+        }
     }
 
     @Override
@@ -315,7 +321,7 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
             screenOff();
         }
         hideToast();
-        //        toMainFragment();
+        toMainFragment();
     }
 
 
@@ -450,28 +456,31 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
             //            isScreenOn = false;
             policyManager.lockNow();
         } else {
-            Toast.makeText(this, "没有设备管理权限",
-                    Toast.LENGTH_LONG).show();
+            showToast("没有设备管理权限");
         }
     }
 
-    //    private CountDownTimer countDownTimer;
-    //
-    //    private void toMainFragment() {
-    //        if (countDownTimer != null) {
-    //            countDownTimer.cancel();
-    //        }
-    //        countDownTimer = new CountDownTimer(300000, 1000) {
-    //
-    //            @Override
-    //            public void onTick(long millisUntilFinished) {
-    //            }
-    //
-    //            @Override
-    //            public void onFinish() {
-    //                chooseFragment(Constant.FRAGMENT_MAIN);
-    //            }
-    //        }.start();
-    //    }
+    private CountDownTimer countDownTimer;
+
+    private void toMainFragment() {
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+        }
+        countDownTimer = new CountDownTimer(30000, 1000) {
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+                Log.e(TAG, "millisUntilFinished " + millisUntilFinished);
+                if (millisUntilFinished / 1000 < 1) {
+                    chooseFragment(Constant.FRAGMENT_MAIN);
+                }
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+        }.start();
+    }
 
 }

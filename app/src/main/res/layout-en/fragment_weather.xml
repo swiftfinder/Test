@@ -15,7 +15,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:paddingTop="18dp"
-            android:text="50-70"
+            android:text="43-55"
             android:textColor="@android:color/white"
             android:textSize="119sp" />
 
@@ -93,7 +93,7 @@
             android:drawableLeft="@drawable/icon_humidity"
             android:drawablePadding="14dp"
             android:gravity="center"
-            android:text="humidity 60%"
+            android:text="humidity 55%"
             android:textColor="@android:color/white"
             android:textSize="22sp" />
 
