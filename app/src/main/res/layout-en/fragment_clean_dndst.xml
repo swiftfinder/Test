@@ -56,7 +56,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@id/iv_temperature"
-            android:text="8"
+            android:text="55"
             android:textColor="@color/text_grey"
             android:textSize="50sp"/>
 

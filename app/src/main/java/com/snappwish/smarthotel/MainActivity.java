@@ -301,6 +301,7 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
         RobotManager.getInstance().setVoiceType(language.contains("en") ?
                 Constant.LANGUAGE_USER_EN : Constant.LANGUAGE_USER_CN);
         RobotManager.getInstance().startRecognizing(this);
+        cancelTimer();
     }
 
     @Override
@@ -481,6 +482,12 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
 
             }
         }.start();
+    }
+
+    private void cancelTimer() {
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+        }
     }
 
 }
