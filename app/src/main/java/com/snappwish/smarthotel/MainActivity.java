@@ -85,7 +85,7 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
 
     @Override
     protected void initTitle() {
-//        queryWeather();
+        //        queryWeather();
     }
 
     @Override
@@ -115,6 +115,12 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
     protected void onResume() {
         super.onResume();
         hideBottomUIMenu();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        cancelTimer();
     }
 
     @Override
@@ -192,7 +198,12 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
                 || content.contains("三分")
                 || content.contains("四分")
                 || content.contains("五分")
-                || content.contains("scale")) && checkOut) {
+                || content.contains("scale")
+                || content.contains("one")
+                || content.contains("two")
+                || content.contains("three")
+                || content.contains("four")
+                || content.contains("five")) && checkOut) {
             text = getString(R.string.answer_unsubscribe_end);
             checkOut = false;
             //            chooseFragment(Constant.FRAGMENT_MAIN);

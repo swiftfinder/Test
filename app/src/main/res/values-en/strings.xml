@@ -4,7 +4,7 @@
     <string name="unsubscribe_hotel_2">Thanks for your stay!\nLooking forward to your next visit!</string>
     <string name="check_out_hotel_name">Las Vegas Hotel</string>
     <string name="check_out_hotel_title">Deluxe King (Breakfast Included)</string>
-    <string name="check_out_hotel_number">Rome NO. 1608</string>
+    <string name="check_out_hotel_number">Room No. 1608</string>
     <string name="check_out_start_time">check in&#160;&#160;</string>
     <string name="check_out_end_time">check out</string>
     <string name="check_out_time_count">2 Night</string>
@@ -36,7 +36,7 @@
     <string name="ansewer_good_night">Okay, all lights are turned off, good night!</string>
     <string name="answer_checkout">Sure. I will help arrange express checkout for you. You checked in on January 5th, and today is January 7th, so you will pay for 2 nights at 300 dollars in total. Can you confirm the bill?</string>
     <string name="answer_pay_goods">Great. Did you consume any merchandise listed on the screen in your room?</string>
-    <string name="answer_unsubscribe">Got it. The bill will be paid with your credit card. The express check-out is done now.In the scale of 1 to 5, how satisfied are you with your stay in our hotel this time?</string>
+    <string name="answer_unsubscribe">Got it. The bill will be paid with your credit card. The express check-out is done now. In the scale of 1 to 5, how satisfied are you with your stay in our hotel this time?</string>
     <string name="answer_error">sorry, this problem seems too difficult!</string>
     <string name="answer_video">Okay, here is today\'s headlines.</string>
     <string name="answer_unsubscribe_end">Thank you! Looking forward to your next visit. Don\'t forget your belongings when leaving the room. Have a nice day!</string>
