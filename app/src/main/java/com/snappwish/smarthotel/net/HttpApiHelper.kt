@@ -15,16 +15,16 @@ import java.util.concurrent.TimeUnit
  */
 class HttpApiHelper {
     companion object {
-        private const val URL: String = ""
+        private const val URL: String = "http://192.168.0.113:8080/"
         private fun create(url: String): Retrofit {
             val level: HttpLoggingInterceptor.Level = HttpLoggingInterceptor.Level.BODY
 
-            val logInterceptor: HttpLoggingInterceptor = HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { message ->
-                Log.e("OKHttp:", message)
+            val logInterceptor = HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { message ->
+                Log.e("JKDEMO:", message)
             })
             logInterceptor.level = level
             val okHttpClientBuilder: OkHttpClient.Builder = OkHttpClient.Builder()
-//            okHttpClientBuilder.addInterceptor(logInterceptor)
+            okHttpClientBuilder.addNetworkInterceptor(logInterceptor)
 
             okHttpClientBuilder.connectTimeout(30, TimeUnit.SECONDS)
             okHttpClientBuilder.readTimeout(30, TimeUnit.SECONDS)
