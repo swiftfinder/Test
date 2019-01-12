@@ -5,7 +5,6 @@ import android.app.KeyguardManager;
 import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Build;
 import android.os.CountDownTimer;
 import android.os.PowerManager;
@@ -16,7 +15,6 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.snappwish.base_core.basemvp.FragmentManagerHelper;
@@ -75,6 +73,7 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
     private UnsubscribeFragment unsubscribeFragment;
     private PayGoodsFragment payGoodsFragment;
     private VideoFragment videoFragment;
+    private JkDemoFragment jkDemoFragment;
     private String language;
 
 
@@ -254,9 +253,13 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
                 fragmentHelper.switchFragment(welcomeFragment);
                 break;
             case Constant.FRAGMENT_MAIN:
-                if (mainFragment == null)
-                    mainFragment = MainFragment.newInstance();
-                fragmentHelper.switchFragment(mainFragment);
+//                if (mainFragment == null)
+//                    mainFragment = MainFragment.newInstance();
+//                fragmentHelper.switchFragment(mainFragment);
+                if (jkDemoFragment == null) {
+                    jkDemoFragment = new JkDemoFragment();
+                }
+                fragmentHelper.switchFragment(jkDemoFragment);
                 break;
             case Constant.FRAGMENT_MEAL:
                 if (mealFragment == null)
