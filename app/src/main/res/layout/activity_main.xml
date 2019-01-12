@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/rl_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/img_bg"
@@ -10,24 +10,55 @@
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lottie_view"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         app:lottie_autoPlay="false"
         app:lottie_loop="true"
-        app:lottie_rawRes="@raw/sequence" />
+        app:lottie_rawRes="@raw/sequence"/>
 
+    <TextView
+        android:id="@+id/tv_toast"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/lottie_view"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/icon_chat"
+        android:gravity="center"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:textColor="@color/text_blue2"
+        android:textSize="17sp"
+        android:visibility="invisible"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="40dp"
+        android:layout_marginRight="32dp"
+        android:text="Powered by Swift365"
+        android:textColor="@color/text_grey2"
+        android:textSize="17sp"/>
 
     <FrameLayout
         android:id="@+id/fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/lottie_view"
+        android:layout_above="@id/tv_toast"
         android:layout_marginBottom="20dp"
         android:layout_marginLeft="63dp"
         android:layout_marginRight="63dp"
-        android:layout_marginTop="50dp" />
+        android:layout_marginTop="50dp"/>
+
+    <ImageView
+        android:id="@+id/iv_sleep"
+        android:visibility="invisible"
+        android:background="@drawable/img_sleep"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 
 </RelativeLayout>

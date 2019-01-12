@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
+import com.snappwish.smarthotel.Constant;
 
 /**
  * @author lishibo
@@ -15,6 +16,7 @@ public class RobotManager {
     private static final String TAG = "RobotManager";
 
     private static RobotManager sRobotManager = null;
+    private Context context;
 
     public static RobotManager getInstance() {
         if (null == sRobotManager) {
@@ -24,8 +26,8 @@ public class RobotManager {
     }
 
     public void init(Context context) {
+        this.context = context;
         SpeechUtility.createUtility(context, SpeechConstant.APPID + SpeechConfig.IFLYTEK_ID);
-        initTTSEngine(context);
     }
 
     private STTEngine mSTTEngine = null;
@@ -35,8 +37,8 @@ public class RobotManager {
      *
      * @param context
      */
-    public void initSTTEngine(Context context) {
-        mSTTEngine = new STTEngine(context);
+    public void initSTTEngine(Context context, boolean hasDialog, String language) {
+        mSTTEngine = new STTEngine(context, hasDialog, language);
     }
 
     /**
@@ -44,10 +46,12 @@ public class RobotManager {
      *
      * @param context context
      */
-    public void initTTSEngine(Context context) {
+    public void initTTSEngine(Context context, TTSEngine.TtsListener listener, String language) {
         mTTSEngine = new TTSEngine(context);
         RobotManager.getInstance().setVoiceState(true);
-        RobotManager.getInstance().setVoiceType("xiaoyan");
+        RobotManager.getInstance().setVoiceType(language.contains("en") ?
+                Constant.LANGUAGE_USER_EN : Constant.LANGUAGE_USER_CN);
+        mTTSEngine.setListener(listener);
     }
 
     public void startRecognizing(STTListener sttListener) {

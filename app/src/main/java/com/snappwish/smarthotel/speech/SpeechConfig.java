@@ -6,5 +6,5 @@ package com.snappwish.smarthotel.speech;
  * email : andy_li@swift365.com.cn
  */
 public class SpeechConfig {
-    public static final String IFLYTEK_ID = "=5c1d979f";
+    public static final String IFLYTEK_ID = "=5c22eaa1";
 }

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/rl_weather"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
+        <TextView
+            android:id="@+id/tv_temperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:paddingTop="18dp"
+            android:text="43-55"
+            android:textColor="@android:color/white"
+            android:textSize="119sp" />
+
+        <TextView
+            android:id="@+id/tv_placeholder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/tv_temperature"
+            android:text="℉"
+            android:textColor="@android:color/white"
+            android:textSize="60sp" />
+
+
+        <TextView
+            android:id="@+id/tv_weather"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:layout_toRightOf="@+id/tv_placeholder"
+            android:paddingTop="36dp"
+            android:text="(sunny)"
+            android:textColor="@android:color/white"
+            android:textSize="50sp" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/rl_weather"
+        android:layout_centerHorizontal="true"
+        android:textColor="@android:color/white"
+        android:textSize="30sp" />
+
+    <ImageView
+        android:id="@+id/iv_weather"
+        android:layout_width="71dp"
+        android:layout_height="71dp"
+        android:layout_above="@+id/tv_date"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="39dp"
+        android:src="@drawable/icon_sunny" />
+
+    <RelativeLayout
+        android:id="@+id/rl_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_weather"
+        android:layout_marginTop="48dp">
+
+        <TextView
+            android:id="@+id/tv_windy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="39dp"
+            android:layout_marginRight="39dp"
+            android:drawableLeft="@drawable/icon_windy"
+            android:drawablePadding="14dp"
+            android:gravity="center"
+            android:text="NW wind 2~3Lv"
+            android:textColor="@android:color/white"
+            android:textSize="22sp" />
+
+
+        <TextView
+            android:id="@+id/tv_humidity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_toRightOf="@+id/tv_windy"
+            android:drawableLeft="@drawable/icon_humidity"
+            android:drawablePadding="14dp"
+            android:gravity="center"
+            android:text="humidity 55%"
+            android:textColor="@android:color/white"
+            android:textSize="22sp" />
+
+        <TextView
+            android:id="@+id/tv_inside_temperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_toLeftOf="@+id/tv_windy"
+            android:drawableLeft="@drawable/icon_temperature"
+            android:drawablePadding="14dp"
+            android:gravity="center"
+            android:text="indoor 75℉"
+            android:textColor="@android:color/white"
+            android:textSize="22sp" />
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

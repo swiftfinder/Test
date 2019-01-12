@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/shape_checkout_bg">
+
+    <ImageView
+        android:id="@+id/iv_hotel_bg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="53dp"
+        android:src="@drawable/img_hotel_bg"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/iv_hotel_bg"
+        android:layout_alignTop="@id/iv_hotel_bg"
+        android:layout_marginLeft="78dp"
+        android:layout_toRightOf="@id/iv_hotel_bg">
+
+        <TextView
+            android:id="@+id/tv_hotel_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/check_out_hotel_name"
+            android:textColor="@color/text_white"
+            android:textSize="39sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tv_hotel_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_hotel_name"
+            android:layout_marginTop="13dp"
+            android:text="@string/check_out_hotel_title"
+            android:textColor="@color/text_white"
+            android:textSize="25sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tv_hotel_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_hotel_title"
+            android:layout_marginTop="13dp"
+            android:text="@string/check_out_hotel_number"
+            android:textColor="@color/text_white"
+            android:textSize="20sp"
+            android:textStyle="bold"/>
+
+        <LinearLayout
+            android:id="@+id/ll_welcome_time_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_hotel_number"
+            android:layout_marginTop="37dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/check_out_start_time"
+                android:textColor="@color/text_white"
+                android:textSize="18sp"/>
+            <TextView
+                android:id="@+id/tv_welcome_time_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:text="2018-12-1"
+                android:textColor="@color/text_white"
+                android:textSize="20sp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_welcome_time_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ll_welcome_time_start"
+            android:layout_marginTop="7dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/check_out_end_time"
+                android:textColor="@color/text_white"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/tv_welcome_time_end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="14dp"
+                android:text="2018-12-3"
+                android:textColor="@color/text_white"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:id="@+id/tv_welcome_time_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:text="@string/check_out_time_count"
+                android:textColor="@color/text_blue1"
+                android:textSize="20sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ll_welcome_time_end"
+            android:layout_marginTop="44dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/check_out_room_rate"
+                android:textColor="@color/text_white"
+                android:textSize="22sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="14dp"
+                android:text="$"
+                android:textColor="@color/text_orange"
+                android:textSize="28sp"/>
+
+            <TextView
+                android:id="@+id/tv_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="300"
+                android:textColor="@color/text_orange"
+                android:textSize="50sp"/>
+        </LinearLayout>
+
+        <Button
+            android:layout_width="124dp"
+            android:layout_height="47dp"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/shape_button"
+            android:text="@string/button_ok"
+            android:textColor="@color/text_white"
+            android:textSize="25sp"/>
+    </RelativeLayout>
+
+</RelativeLayout>
