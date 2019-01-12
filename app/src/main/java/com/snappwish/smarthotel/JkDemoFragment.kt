@@ -32,7 +32,7 @@ class JkDemoFragment : BaseFragment() {
     override fun initView() {
         seek_bar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
-                showToast("progress is $p1")
+
             }
 
             override fun onStartTrackingTouch(p0: SeekBar?) {
@@ -40,6 +40,9 @@ class JkDemoFragment : BaseFragment() {
             }
 
             override fun onStopTrackingTouch(p0: SeekBar?) {
+                if (p0 != null) {
+                    changeStatus(TIAO_GUANG_SWITCH, p0.progress)
+                }
 
             }
 

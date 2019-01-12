@@ -28,5 +28,6 @@ data class Result(
 
 data class ChangeStatusResponse(
     val message: String,
+    val result: Any,
     val status: String
 )

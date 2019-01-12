@@ -13,10 +13,10 @@ interface ApiService {
     /**
      * login
      */
-    @GET("login")
+    @GET("/login")
     fun login(): Observable<LoginResponse>
 
-    @GET("device")
+    @GET("/device")
     fun changeStatus(@QueryMap map: Map<String, Int>): Observable<ChangeStatusResponse>
 
 }
