@@ -25,11 +25,11 @@
     <string name="pay_goods_item_title_5">Walnuts</string>
     <string name="pay_goods_item_6">NO. 6</string>
     <string name="pay_goods_item_title_6">Lay\'s Chips</string>
-    <string name="welcome_title">Dear Mr. Smith, Welcome to Las Vegas Hotel</string>
+    <string name="welcome_title">Dear Mr. Smith, Welcome to Las Vegas Hotel.</string>
     <string name="welcome_bed">Deluxe King (Breakfast Included)</string>
     <string name="welcome_start_time">check&#160;in&#160;&#160;&#160;&#160;&#160;&#160;2018-12-25</string>
     <string name="welcome_end_time">check&#160;out&#160;&#160;&#160;&#160;2018-12-27</string>
-    <string name="speak_welcome">Dear Mr Smith, welcome to Las Vegas Hotel. I am your personal A I attendant. </string>
+    <string name="speak_welcome">Dear Mr Smith, welcome to Las Vegas Hotel. I am your personal AI attendant. </string>
     <string name="answer_meal">The breakfast buffet ends at 10 am today. There are still 28 minutes left.</string>
     <string name="answer_clean_hotel">Okay, a housekeeper is on her way.</string>
     <string name="answer_not_dndst">Okay, we have setup Do Not Disturb sign for you.</string>
