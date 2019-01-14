@@ -2,6 +2,7 @@ package com.snappwish.smarthotel
 
 import android.util.Log
 import android.widget.SeekBar
+import android.widget.Toast
 import com.snappwish.base_core.basemvp.BaseFragment
 import com.snappwish.smarthotel.net.HttpApiHelper
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -68,8 +69,8 @@ class JkDemoFragment : BaseFragment() {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
-                    if (result.status.equals("0")) {
-                        showToast("success")
+                    if (result.status == "0") {
+                        Toast.makeText(context,"login success",Toast.LENGTH_LONG).show()
                     }
                 }, Throwable::printStackTrace)
     }
@@ -81,14 +82,13 @@ class JkDemoFragment : BaseFragment() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
                     Log.d("Kotlin", result.toString())
+                    if (result.status == "0") {
+                        Toast.makeText(context,"ok",Toast.LENGTH_SHORT).show()
+                    }
                 }, { error ->
                     error.printStackTrace()
-                }, {
-                    Log.d("Kotlin", "onComplete")
-                }, {
-                    Log.d("Kotlin", "onStart")
                 })
-
-
     }
+
+
 }

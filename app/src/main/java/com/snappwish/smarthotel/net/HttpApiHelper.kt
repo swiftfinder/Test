@@ -19,12 +19,12 @@ import java.util.concurrent.TimeUnit
  */
 class HttpApiHelper {
     companion object {
-        private const val URL: String = "http://192.168.0.113:8080"
+        private const val BASE_URL: String = "http://47.101.51.107:8081"
         private fun create(url: String): Retrofit {
             val level: HttpLoggingInterceptor.Level = HttpLoggingInterceptor.Level.BODY
 
             val logInterceptor = HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { message ->
-                Log.e("JKDEMO:", message)
+                Log.d("JKDEMO:", message)
             })
             logInterceptor.level = level
 
@@ -51,7 +51,7 @@ class HttpApiHelper {
 
         }
 
-        val apiService: ApiService = HttpApiHelper.getApiService(URL, ApiService::class.java)
+        val apiService: ApiService = HttpApiHelper.getApiService(BASE_URL, ApiService::class.java)
         private fun <T> getApiService(url: String, service: Class<T>): T {
             return create(url).create(service)
         }
