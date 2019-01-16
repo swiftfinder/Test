@@ -5,7 +5,6 @@ import android.app.KeyguardManager;
 import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Build;
 import android.os.CountDownTimer;
 import android.os.PowerManager;
@@ -16,7 +15,6 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.snappwish.base_core.basemvp.FragmentManagerHelper;
@@ -75,6 +73,7 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
     private UnsubscribeFragment unsubscribeFragment;
     private PayGoodsFragment payGoodsFragment;
     private VideoFragment videoFragment;
+    private JkDemoFragment jkDemoFragment;
     private String language;
 
 
@@ -214,6 +213,9 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
                 || content.contains("cancel") || content.contains("back")) {
             text = getString(R.string.answer_okay);
             chooseFragment(Constant.FRAGMENT_MAIN);
+        } else if (content.contains("控制") || content.contains("control")) {
+            text = getString(R.string.answer_controller);
+            chooseFragment(Constant.FRAGMENT_JKDEMO);
         } else {
             if (!checkOut) {
                 text = getString(R.string.answer_error);
@@ -298,6 +300,12 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
                     videoFragment = VideoFragment.newInstance();
                 }
                 fragmentHelper.switchFragment(videoFragment);
+                break;
+            case Constant.FRAGMENT_JKDEMO:
+                if (jkDemoFragment == null) {
+                    jkDemoFragment = new JkDemoFragment();
+                }
+                fragmentHelper.switchFragment(jkDemoFragment);
                 break;
         }
     }

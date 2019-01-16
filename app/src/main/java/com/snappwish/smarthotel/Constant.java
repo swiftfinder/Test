@@ -16,6 +16,7 @@ public class Constant {
     public static final String FRAGMENT_UNSUBSCRIBE = "fragment_unsubscribe";
     public static final String FRAGMENT_PAY_GOODS = "fragment_pay_goods";
     public static final String FRAGMENT_VIDEO = "fragment_video";
+    public static final String FRAGMENT_JKDEMO = "fragment_jkdemo";
 
     public static final String LANGUAGE_CN = "zh_cn";
     public static final String LANGUAGE_EN = "en_us";
