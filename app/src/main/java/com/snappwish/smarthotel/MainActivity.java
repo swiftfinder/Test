@@ -213,6 +213,9 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
                 || content.contains("cancel") || content.contains("back")) {
             text = getString(R.string.answer_okay);
             chooseFragment(Constant.FRAGMENT_MAIN);
+        } else if (content.contains("控制") || content.contains("control")) {
+            text = getString(R.string.answer_controller);
+            chooseFragment(Constant.FRAGMENT_JKDEMO);
         } else {
             if (!checkOut) {
                 text = getString(R.string.answer_error);
@@ -253,13 +256,9 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
                 fragmentHelper.switchFragment(welcomeFragment);
                 break;
             case Constant.FRAGMENT_MAIN:
-//                if (mainFragment == null)
-//                    mainFragment = MainFragment.newInstance();
-//                fragmentHelper.switchFragment(mainFragment);
-                if (jkDemoFragment == null) {
-                    jkDemoFragment = new JkDemoFragment();
-                }
-                fragmentHelper.switchFragment(jkDemoFragment);
+                if (mainFragment == null)
+                    mainFragment = MainFragment.newInstance();
+                fragmentHelper.switchFragment(mainFragment);
                 break;
             case Constant.FRAGMENT_MEAL:
                 if (mealFragment == null)
@@ -301,6 +300,12 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
                     videoFragment = VideoFragment.newInstance();
                 }
                 fragmentHelper.switchFragment(videoFragment);
+                break;
+            case Constant.FRAGMENT_JKDEMO:
+                if (jkDemoFragment == null) {
+                    jkDemoFragment = new JkDemoFragment();
+                }
+                fragmentHelper.switchFragment(jkDemoFragment);
                 break;
         }
     }

@@ -43,4 +43,5 @@
     <string name="inside_temprature">室内%s</string>
     <string name="answer_thank_you">You are welcome</string>
     <string name="answer_okay">okay</string>
+    <string name="answer_controller">Have jumped to the smart home control center for you.</string>
 </resources>

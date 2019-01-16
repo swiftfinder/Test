@@ -44,4 +44,5 @@
     <string name="inside_temprature">室内%s</string>
     <string name="answer_thank_you">不客气</string>
     <string name="answer_okay">好的</string>
+    <string name="answer_controller">已为你跳转智能家居控制中心</string>
 </resources>
