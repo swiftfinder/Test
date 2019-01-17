@@ -22,4 +22,5 @@ public class Constant {
     public static final String LANGUAGE_EN = "en_us";
     public static final String LANGUAGE_USER_CN = "xiaoyan";
     public static final String LANGUAGE_USER_EN = "catherine";
+
 }

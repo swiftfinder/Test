@@ -24,7 +24,7 @@ class HttpApiHelper {
             val level: HttpLoggingInterceptor.Level = HttpLoggingInterceptor.Level.BODY
 
             val logInterceptor = HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { message ->
-                Log.d("JKDEMO:", message)
+                Log.e("JKDEMO:", message)
             })
             logInterceptor.level = level
 
