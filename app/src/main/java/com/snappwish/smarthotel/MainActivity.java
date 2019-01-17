@@ -30,6 +30,8 @@ import com.snappwish.smarthotel.speech.TTSEngine;
 import com.snappwish.smarthotel.speech.WakeupListener;
 import com.snappwish.smarthotel.speech.WakeupManager;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -144,6 +146,8 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
 
     private boolean checkOut = false;
 
+    private boolean controller = false;
+
     @Override
     public void sttSuccess(String speaker) {
         String content = "";
@@ -165,7 +169,7 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
                 || content.contains("news") || content.contains("headline")) {
             text = getString(R.string.answer_video);
             chooseFragment(Constant.FRAGMENT_VIDEO);
-        } else if (content.contains("打扫") || content.contains("卫生")
+        } else if (content.contains("打扫")
                 || content.contains("make up the room")) {
             text = getString(R.string.answer_clean_hotel);
             chooseFragment(Constant.FRAGMENT_CLEAN_DNDST, 1);
@@ -209,19 +213,55 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
         } else if (content.contains("谢谢") || content.contains("thank you")) {
             text = getString(R.string.answer_thank_you);
             chooseFragment(Constant.FRAGMENT_MAIN);
-        } else if (content.contains("退出") || content.contains("返回")
-                || content.contains("cancel") || content.contains("back")) {
-            text = getString(R.string.answer_okay);
-            chooseFragment(Constant.FRAGMENT_MAIN);
         } else if (content.contains("控制") || content.contains("control")) {
+            controller = true;
             text = getString(R.string.answer_controller);
             chooseFragment(Constant.FRAGMENT_JKDEMO);
+        } else if (controller && (content.contains("床头灯") && content.contains("打开"))) {
+            text = "已经为你打开床头灯";
+            sendEvent(JkDemoFragment.TIAO_GUANG_SWITCH, 100);
+        } else if (controller && (content.contains("床头灯") && content.contains("关闭"))) {
+            text = "已经为你关闭床头灯";
+            sendEvent(JkDemoFragment.TIAO_GUANG_SWITCH, -100);
+        } else if (controller && (content.contains("床头灯") && content.contains("高"))) {
+            text = "已经为你调高床头灯";
+            sendEvent(JkDemoFragment.TIAO_GUANG_SWITCH, 10);
+        } else if (controller && (content.contains("床头灯") && content.contains("低"))) {
+            text = "已经为你调低床头灯";
+            sendEvent(JkDemoFragment.TIAO_GUANG_SWITCH, -10);
+        } else if (controller && (content.contains("卫生间") && content.contains("打开"))) {
+            text = "已经为你打开卫生间灯";
+            sendEvent(JkDemoFragment.LEFT_LIGHT, JkDemoFragment.LIGHT_OPEN);
+        } else if (controller && (content.contains("卫生间") && content.contains("关闭"))) {
+            text = "已经为你关闭卫生间灯";
+            sendEvent(JkDemoFragment.LEFT_LIGHT, JkDemoFragment.LIGHT_CLOSE);
+        } else if (controller && (content.contains("走廊") && content.contains("打开"))) {
+            text = "已经为你打开走廊灯";
+            sendEvent(JkDemoFragment.RIGHT_LIGHT, JkDemoFragment.LIGHT_OPEN);
+        } else if (controller && (content.contains("走廊") && content.contains("关闭"))) {
+            text = "已经为你关闭走廊灯";
+            sendEvent(JkDemoFragment.RIGHT_LIGHT, JkDemoFragment.LIGHT_CLOSE);
+        } else if (controller && (content.contains("插座") && content.contains("打开"))) {
+            text = "已经为你打开插座";
+            sendEvent(JkDemoFragment.BORD, JkDemoFragment.SWITCH_OPEN);
+        } else if (controller && (content.contains("插座") && content.contains("关闭"))) {
+            text = "已经为你关闭插座";
+            sendEvent(JkDemoFragment.BORD, JkDemoFragment.SWITCH_CLOSE);
+        } else if (controller && content.contains("退出") && content.contains("控制")) {
+            text = "已经退出控制中心";
+            chooseFragment(Constant.FRAGMENT_MAIN);
+        } else if (content.contains("退出") || content.contains("返回")
+                || content.contains("cancel") || content.contains("back")) {
+            controller = false;
+            checkOut = false;
+            text = getString(R.string.answer_okay);
+            chooseFragment(Constant.FRAGMENT_MAIN);
         } else {
-            if (!checkOut) {
+            if (checkOut || controller) {
                 text = getString(R.string.answer_error);
-                chooseFragment(Constant.FRAGMENT_MAIN);
             } else {
                 text = getString(R.string.answer_error);
+                chooseFragment(Constant.FRAGMENT_MAIN);
             }
         }
         if (!TextUtils.isEmpty(text)) {
@@ -232,6 +272,10 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
         }
         WakeupManager.getInstance(this).startWakeup(this);
         lottieAnimationView.cancelAnimation();
+    }
+
+    private void sendEvent(int device, int state) {
+        EventBus.getDefault().post(new DeviceEvent(device, state));
     }
 
     @Override
@@ -333,7 +377,7 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
         if (isWelcome) {
             isWelcome = false;
             WakeupManager.getInstance(this).startWakeup(this);
-        } else if (checkOut) {
+        } else if (checkOut || controller) {
             WakeupManager.getInstance(this).cancelWakeup();
             RobotManager.getInstance().startRecognizing(this);
         } else if (isSleep) {
@@ -486,7 +530,7 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
         if (countDownTimer != null) {
             countDownTimer.cancel();
         }
-        countDownTimer = new CountDownTimer(30000, 1000) {
+        countDownTimer = new CountDownTimer(300000, 1000) {
 
             @Override
             public void onTick(long millisUntilFinished) {
