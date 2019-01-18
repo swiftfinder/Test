@@ -26,6 +26,18 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.USES_POLICY_FORCE_LOCK" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <application
         android:name=".base.MyBaseApplication"
         android:allowBackup="true"
@@ -34,6 +46,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/full_screen_theme">
+        <meta-data
+            android:name="com.baidu.speech.APP_ID"
+            android:value="15432378"/>
+        <meta-data
+            android:name="com.baidu.speech.API_KEY"
+            android:value="7iwCuk8LhSDvoZoUM2st7OKM9XGBH642" />
+        <meta-data
+            android:name="com.baidu.speech.SECRET_KEY"
+            android:value="S9xknYAYo6kgbQorfukOwCNotKykTM1s" />
+
         <activity android:name=".MainActivity"
                   android:screenOrientation="landscape">
             <intent-filter>
@@ -55,6 +77,12 @@
                 <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
             </intent-filter>
         </receiver>
+
+        <!-- KITT 唤醒 单独进程 -->
+        <service
+            android:name="com.baidu.duer.kitt.KittWakeUpService"
+            android:enabled="true"
+            android:process=":kittwakeup" />
     </application>
 
 </manifest>

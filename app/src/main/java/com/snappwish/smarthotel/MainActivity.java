@@ -1,6 +1,7 @@
 package com.snappwish.smarthotel;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.KeyguardManager;
 import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
@@ -24,11 +25,7 @@ import com.snappwish.base_core.permission.PermissionSuccess;
 import com.snappwish.smarthotel.base.MyBaseActivity;
 import com.snappwish.smarthotel.bean.JsonTools;
 import com.snappwish.smarthotel.bean.WeatherBean;
-import com.snappwish.smarthotel.speech.RobotManager;
-import com.snappwish.smarthotel.speech.STTListener;
-import com.snappwish.smarthotel.speech.TTSEngine;
-import com.snappwish.smarthotel.speech.WakeupListener;
-import com.snappwish.smarthotel.speech.WakeupManager;
+import com.snappwish.smarthotel.util.Utils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -50,7 +47,7 @@ import okhttp3.Response;
  * description:
  */
 
-public class MainActivity extends MyBaseActivity implements STTListener, WakeupListener, TTSEngine.TtsListener {
+public class MainActivity extends MyBaseActivity{
 
     private static final String TAG = "MainActivity";
     @BindView(R.id.fragment)
@@ -86,7 +83,6 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
 
     @Override
     protected void initTitle() {
-        //        queryWeather();
     }
 
     @Override
@@ -98,24 +94,28 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
     protected void initData() {
         PermissionHelper.with(this)
                 .requestCode(PERMISSION_RECORD)
-                .permissions(Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .permissions(Manifest.permission.RECORD_AUDIO,
+                        Manifest.permission.ACCESS_NETWORK_STATE,
+                        Manifest.permission.INTERNET,
+                        Manifest.permission.READ_PHONE_STATE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION)
                 .request();
         Locale locale = getResources().getConfiguration().locale;
         language = locale.getLanguage();
-        RobotManager.getInstance().initSTTEngine(this, false, language);
-        RobotManager.getInstance().initTTSEngine(this, this, language);
         chooseFragment(Constant.FRAGMENT_MAIN);
         if (language.contains("en")) {
             mWeatherInfo = "Tomorrow will be sunny, with highest temperature at 55 degrees Fahrenheit";
         } else {
-            queryWeather();
+//            queryWeather();
         }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        hideBottomUIMenu();
+        Utils.hideBottomUIMenu(this);
     }
 
     @Override
@@ -131,7 +131,7 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
 
     @PermissionSuccess(requestCode = PERMISSION_RECORD)
     private void callSuccess() {
-        WakeupManager.getInstance(this).startWakeup(this);
+//        WakeupManager.getInstance(this).startWakeup(this);
     }
 
     @PermissionFailure(requestCode = PERMISSION_RECORD)
@@ -268,9 +268,8 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
             startSpeak(text);
         }
         if (!TextUtils.isEmpty(content)) {
-            showToast(content);
+            showChat(content);
         }
-        WakeupManager.getInstance(this).startWakeup(this);
         lottieAnimationView.cancelAnimation();
     }
 
@@ -279,13 +278,8 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
     }
 
     @Override
-    public void sttFailed(String errorMsg) {
+    public void sttFailure() {
         lottieAnimationView.cancelAnimation();
-        WakeupManager.getInstance(this).startWakeup(this);
-    }
-
-    public void startSpeak(String content) {
-        RobotManager.getInstance().startSpeaking(content);
     }
 
     public void chooseFragment(String itemTitle) {
@@ -356,35 +350,21 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
 
     @Override
     public void wakeupSuccess() {
-        wakeUpAndUnlock(getApplicationContext());
+        Utils.wakeUpAndUnlock(getApplicationContext());
         ivSleep.setVisibility(View.INVISIBLE);
         lottieAnimationView.playAnimation();
-        WakeupManager.getInstance(this).cancelWakeup();
-        RobotManager.getInstance().setVoiceState(true);
-        RobotManager.getInstance().setVoiceType(language.contains("en") ?
-                Constant.LANGUAGE_USER_EN : Constant.LANGUAGE_USER_CN);
-        RobotManager.getInstance().startRecognizing(this);
         cancelTimer();
-    }
-
-    @Override
-    public void wakeupFailed(String failedMsg) {
-
     }
 
     @Override
     public void onCompleted() {
         if (isWelcome) {
             isWelcome = false;
-            WakeupManager.getInstance(this).startWakeup(this);
-        } else if (checkOut || controller) {
-            WakeupManager.getInstance(this).cancelWakeup();
-            RobotManager.getInstance().startRecognizing(this);
         } else if (isSleep) {
             isSleep = false;
-            screenOff();
+            Utils.screenOff(this);
         }
-        hideToast();
+        hideChat();
         toMainFragment();
     }
 
@@ -397,6 +377,50 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
 
     private boolean isSleep = false;
 
+    @Override
+    public void showChat(String context) {
+        tvToast.setText(context);
+        tvToast.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideChat() {
+        tvToast.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                tvToast.setVisibility(View.INVISIBLE);
+            }
+        }, 2000);
+    }
+
+    private CountDownTimer countDownTimer;
+
+    private void toMainFragment() {
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+        }
+        countDownTimer = new CountDownTimer(300000, 1000) {
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+//                Log.e(TAG, "millisUntilFinished " + millisUntilFinished);
+                if (millisUntilFinished / 1000 < 1) {
+                    chooseFragment(Constant.FRAGMENT_MAIN);
+                }
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+        }.start();
+    }
+
+    private void cancelTimer() {
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+        }
+    }
 
     private String mWeatherInfo;
     private String mWeather;
@@ -457,100 +481,4 @@ public class MainActivity extends MyBaseActivity implements STTListener, WakeupL
         }
         return System.currentTimeMillis();
     }
-
-    protected void hideBottomUIMenu() {
-        //隐藏虚拟按键，并且全屏
-        if (Build.VERSION.SDK_INT > 11 && Build.VERSION.SDK_INT < 19) { // lower api
-            View v = this.getWindow().getDecorView();
-            v.setSystemUiVisibility(View.GONE);
-        } else if (Build.VERSION.SDK_INT >= 19) {
-            //for new api versions.
-            View decorView = getWindow().getDecorView();
-            int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                    | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY | View.SYSTEM_UI_FLAG_FULLSCREEN;
-            decorView.setSystemUiVisibility(uiOptions);
-        }
-    }
-
-    public void showToast(String context) {
-        tvToast.setText(context);
-        tvToast.setVisibility(View.VISIBLE);
-    }
-
-    public void hideToast() {
-        tvToast.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                tvToast.setVisibility(View.INVISIBLE);
-            }
-        }, 2000);
-    }
-
-
-    /**
-     * 唤醒手机屏幕并解锁
-     */
-    public void wakeUpAndUnlock(Context context) {
-        // 获取电源管理器对象
-        PowerManager pm = (PowerManager) context
-                .getSystemService(Context.POWER_SERVICE);
-        boolean screenOn = pm.isScreenOn();
-        if (!screenOn) {
-            // 获取PowerManager.WakeLock对象,后面的参数|表示同时传入两个值,最后的是LogCat里用的Tag
-            PowerManager.WakeLock wl = pm.newWakeLock(
-                    PowerManager.ACQUIRE_CAUSES_WAKEUP |
-                            PowerManager.SCREEN_BRIGHT_WAKE_LOCK, "bright");
-            wl.acquire(10000); // 点亮屏幕
-            wl.release(); // 释放
-        }
-        //        // 屏幕解锁
-        KeyguardManager keyguardManager = (KeyguardManager) context
-                .getSystemService(Context.KEYGUARD_SERVICE);
-        KeyguardManager.KeyguardLock keyguardLock = keyguardManager.newKeyguardLock("unLock");
-        //        // 屏幕锁定
-        //        keyguardLock.reenableKeyguard();
-        //        keyguardLock.disableKeyguard(); // 解锁
-    }
-
-    private void screenOff() {
-        DevicePolicyManager policyManager = (DevicePolicyManager) getSystemService(Context.DEVICE_POLICY_SERVICE);
-        ComponentName adminReceiver = new ComponentName(this, ScreenOffAdminReceiver.class);
-        boolean admin = policyManager.isAdminActive(adminReceiver);
-        if (admin) {
-            //            isScreenOn = false;
-            policyManager.lockNow();
-        } else {
-            showToast("没有设备管理权限");
-        }
-    }
-
-    private CountDownTimer countDownTimer;
-
-    private void toMainFragment() {
-        if (countDownTimer != null) {
-            countDownTimer.cancel();
-        }
-        countDownTimer = new CountDownTimer(300000, 1000) {
-
-            @Override
-            public void onTick(long millisUntilFinished) {
-                Log.e(TAG, "millisUntilFinished " + millisUntilFinished);
-                if (millisUntilFinished / 1000 < 1) {
-                    chooseFragment(Constant.FRAGMENT_MAIN);
-                }
-            }
-
-            @Override
-            public void onFinish() {
-
-            }
-        }.start();
-    }
-
-    private void cancelTimer() {
-        if (countDownTimer != null) {
-            countDownTimer.cancel();
-        }
-    }
-
 }

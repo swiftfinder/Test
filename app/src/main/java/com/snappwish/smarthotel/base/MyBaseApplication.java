@@ -5,7 +5,6 @@ import android.content.Context;
 
 import com.facebook.stetho.Stetho;
 import com.snappwish.smarthotel.BuildConfig;
-import com.snappwish.smarthotel.speech.RobotManager;
 
 /**
  * Created by jinjin on 17/11/6.
@@ -31,7 +30,7 @@ public class MyBaseApplication extends Application{
             Stetho.initializeWithDefaults(this);
         }
 
-        RobotManager.getInstance().init(this);
+//        RobotManager.getInstance().init(this);
     }
 
     public Context getContext() {
