@@ -56,6 +56,7 @@ import com.snappwish.smarthotel.devicemodule.screen.message.HtmlPayload;
 import com.snappwish.smarthotel.devicemodule.screen.message.RenderCardPayload;
 import com.snappwish.smarthotel.devicemodule.screen.message.RenderHintPayload;
 import com.snappwish.smarthotel.devicemodule.screen.message.RenderVoiceInputTextPayload;
+import com.snappwish.smarthotel.devicemodule.wakeup.DroiWakeUp;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -271,7 +272,8 @@ public abstract class MyBaseActivity extends BaseActivity {
         BaseAudioRecorder audioRecorder = new AudioRecordImpl();
         IOauth oauth = getOauth();
         // 唤醒单独开启唤醒进程；  如果不需要将唤醒放入一个单独进程，可以使用KittWakeUpImpl
-        final BaseWakeup wakeup = new KittWakeUpServiceImpl(audioRecorder);
+//        final BaseWakeup wakeup = new KittWakeUpServiceImpl(audioRecorder);
+        final BaseWakeup wakeup = new DroiWakeUp(audioRecorder);
         // 百度语音团队的离线asr和百度语音团队的唤醒，2个so库冲突，暂时不要用WakeupImpl实现的唤醒功能！！
         //        final BaseWakeup wakeup = new WakeupImpl();
         final IWakeupProvider wakeupProvider = new IWakeupProvider() {

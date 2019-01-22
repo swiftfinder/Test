@@ -52,6 +52,7 @@ captures/
 .DS_Store
 /build
 /captures
+.externalNativeBuild
 
 swiftfinder_local_config.json
 
