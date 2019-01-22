@@ -9,7 +9,6 @@ import com.baidu.duer.dcs.api.wakeup.BaseWakeup;
 import com.baidu.duer.dcs.api.wakeup.IStopWakeupListener;
 import com.baidu.duer.dcs.util.util.SystemServiceManager;
 import com.baidu.duer.kitt.WakeUpConfig;
-import com.baidu.duer.kitt.WakeUpWord;
 
 import java.io.File;
 import java.util.concurrent.LinkedBlockingDeque;
@@ -18,7 +17,7 @@ public class DroiWakeUp extends BaseWakeup {
     // 初始化唤醒词成功
     private static final int WAKEUP_INIT_SUCCEED = 0;
     // 唤醒词
-    public static final String WAKEUP_WORD = "老板老板";
+    public static final String WAKEUP_WORD = "你好管家";
     // 唤醒词声学模型模型文件
     private static final String WAKEUP_FILENAME = "libbdEasrS1MergeNormal.so";
 

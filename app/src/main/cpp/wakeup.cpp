@@ -40,10 +40,10 @@ Java_com_snappwish_smarthotel_devicemodule_wakeup_WakeUpNative_wakeUpInitial(JNI
     int _mode = mode;
     // 打开log
     // SetLogLevel(5);
-    LOG_D("WakeUpInitial wakeUpWd=%s", wakeUpWd);
-    LOG_D("WakeUpInitial sFile_=%s", sFile);
+//    LOG_D("WakeUpInitial wakeUpWd=%s", wakeUpWd);
+//    LOG_D("WakeUpInitial sFile_=%s", sFile);
     int ret = WakeUpInitial(wakeUpWd, sFile, _mode);
-    LOG_D("WakeUpInitial ret=%d", ret);
+//    LOG_D("WakeUpInitial ret=%d", ret);
 
     env->ReleaseStringUTFChars(wakeUpWd_, wakeUpWd);
     env->ReleaseStringUTFChars(sFile_, sFile);
@@ -80,7 +80,7 @@ Java_com_snappwish_smarthotel_devicemodule_wakeup_WakeUpNative_wakeUpDecode(JNIE
     // fwrite(data_invoke, sizeof(short) * dataLen, 1, file);
     // fclose(file);
 
-    LOG_D("WakeUpDecode data_ GetArrayLength=%d", env->GetArrayLength(data_));
+//    LOG_D("WakeUpDecode data_ GetArrayLength=%d", env->GetArrayLength(data_));
 
     int dataLen_invoke = dataLen;
     // 因为so库里面最大为2560
@@ -91,11 +91,11 @@ Java_com_snappwish_smarthotel_devicemodule_wakeup_WakeUpNative_wakeUpDecode(JNIE
     int voice_offset_invoke = voice_offset;
     bool bEd_invoke = bEd;
 
-    LOG_D("WakeUpDecode dataLen_invoke=%d", dataLen_invoke);
-    LOG_D("WakeUpDecode expectNum_invoke=%d", expectNum_invoke);
-    LOG_D("WakeUpDecode wakeWord_frame_len_invoke=%d", wakeWord_frame_len_invoke);
-    LOG_D("WakeUpDecode is_confidence_invoke=%d", is_confidence_invoke);
-    LOG_D("WakeUpDecode bEd_invoke=%d", bEd_invoke);
+//    LOG_D("WakeUpDecode dataLen_invoke=%d", dataLen_invoke);
+//    LOG_D("WakeUpDecode expectNum_invoke=%d", expectNum_invoke);
+//    LOG_D("WakeUpDecode wakeWord_frame_len_invoke=%d", wakeWord_frame_len_invoke);
+//    LOG_D("WakeUpDecode is_confidence_invoke=%d", is_confidence_invoke);
+//    LOG_D("WakeUpDecode bEd_invoke=%d", bEd_invoke);
 
 
     int ret = WakeUpDecode(data_invoke,
@@ -108,11 +108,11 @@ Java_com_snappwish_smarthotel_devicemodule_wakeup_WakeUpNative_wakeUpDecode(JNIE
                            bEd_invoke
     );
 
-    LOG_D("WakeUpDecode ret=%d", ret);
-    LOG_D("WakeUpDecode senArr=%s", senArr);
-    LOG_D("WakeUpDecode wakeWord_frame_len_invoke=%d", wakeWord_frame_len_invoke);
-    LOG_D("WakeUpDecode is_confidence_invoke=%d", is_confidence_invoke);
-    LOG_D("WakeUpDecode voice_offset_invoke=%d", voice_offset_invoke);
+//    LOG_D("WakeUpDecode ret=%d", ret);
+//    LOG_D("WakeUpDecode senArr=%s", senArr);
+//    LOG_D("WakeUpDecode wakeWord_frame_len_invoke=%d", wakeWord_frame_len_invoke);
+//    LOG_D("WakeUpDecode is_confidence_invoke=%d", is_confidence_invoke);
+//    LOG_D("WakeUpDecode voice_offset_invoke=%d", voice_offset_invoke);
 
     // 释放内存资源
     env->ReleaseShortArrayElements(data_, data_invoke, 0);
@@ -124,6 +124,6 @@ extern "C"
 JNIEXPORT jint JNICALL
 Java_com_snappwish_smarthotel_devicemodule_wakeup_WakeUpNative_wakeUpFree(JNIEnv *env,
                                                                   jobject instance) {
-    LOG_D("WakeUpFree");
+//    LOG_D("WakeUpFree");
     return WakeUpFree();
 }
