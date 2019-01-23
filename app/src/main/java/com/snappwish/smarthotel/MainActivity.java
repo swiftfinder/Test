@@ -1,14 +1,7 @@
 package com.snappwish.smarthotel;
 
 import android.Manifest;
-import android.app.Activity;
-import android.app.KeyguardManager;
-import android.app.admin.DevicePolicyManager;
-import android.content.ComponentName;
-import android.content.Context;
-import android.os.Build;
 import android.os.CountDownTimer;
-import android.os.PowerManager;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
@@ -25,6 +18,7 @@ import com.snappwish.base_core.permission.PermissionSuccess;
 import com.snappwish.smarthotel.base.MyBaseActivity;
 import com.snappwish.smarthotel.bean.JsonTools;
 import com.snappwish.smarthotel.bean.WeatherBean;
+import com.snappwish.smarthotel.net.NetApi;
 import com.snappwish.smarthotel.util.Utils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -47,7 +41,7 @@ import okhttp3.Response;
  * description:
  */
 
-public class MainActivity extends MyBaseActivity{
+public class MainActivity extends MyBaseActivity {
 
     private static final String TAG = "MainActivity";
     @BindView(R.id.fragment)
@@ -88,6 +82,7 @@ public class MainActivity extends MyBaseActivity{
     @Override
     protected void initView() {
         fragmentHelper = new FragmentManagerHelper(getSupportFragmentManager(), R.id.fragment);
+        NetApi.INSTANCE.reqServer();
     }
 
     @Override
@@ -108,7 +103,7 @@ public class MainActivity extends MyBaseActivity{
         if (language.contains("en")) {
             mWeatherInfo = "Tomorrow will be sunny, with highest temperature at 55 degrees Fahrenheit";
         } else {
-//            queryWeather();
+                        queryWeather();
         }
     }
 
@@ -131,7 +126,10 @@ public class MainActivity extends MyBaseActivity{
 
     @PermissionSuccess(requestCode = PERMISSION_RECORD)
     private void callSuccess() {
-//        WakeupManager.getInstance(this).startWakeup(this);
+        //        WakeupManager.getInstance(this).startWakeup(this);
+        initSdk();
+        sdkRun();
+        initListener();
     }
 
     @PermissionFailure(requestCode = PERMISSION_RECORD)
@@ -146,13 +144,10 @@ public class MainActivity extends MyBaseActivity{
 
     private boolean checkOut = false;
 
-    private boolean controller = false;
-
     @Override
     public void sttSuccess(String speaker) {
         String content = "";
         if (!TextUtils.isEmpty(speaker)) {
-            //                    content = speaker.replaceAll(" ", "");
             content = speaker.toLowerCase();
         }
         Log.e(TAG, content);
@@ -182,6 +177,9 @@ public class MainActivity extends MyBaseActivity{
             isSleep = true;
             text = getString(R.string.ansewer_good_night);
             ivSleep.setVisibility(View.VISIBLE);
+            sendDeviceEvent(NetApi.TIAO_GUANG_SWITCH, -100);
+            sendDeviceEvent(NetApi.LEFT_LIGHT, NetApi.LIGHT_CLOSE);
+            sendDeviceEvent(NetApi.RIGHT_LIGHT, NetApi.LIGHT_CLOSE);
         } else if (content.contains("退房")
                 || content.contains("check out")) {
             checkOut = true;
@@ -214,50 +212,53 @@ public class MainActivity extends MyBaseActivity{
             text = getString(R.string.answer_thank_you);
             chooseFragment(Constant.FRAGMENT_MAIN);
         } else if (content.contains("控制") || content.contains("control")) {
-            controller = true;
             text = getString(R.string.answer_controller);
             chooseFragment(Constant.FRAGMENT_JKDEMO);
-        } else if (controller && (content.contains("床头灯") && content.contains("打开"))) {
+        } else if (content.contains("床头灯") && content.contains("打开")) {
             text = "已经为你打开床头灯";
-            sendEvent(JkDemoFragment.TIAO_GUANG_SWITCH, 100);
-        } else if (controller && (content.contains("床头灯") && content.contains("关闭"))) {
+            sendDeviceEvent(NetApi.TIAO_GUANG_SWITCH, 100);
+        } else if (content.contains("床头灯") && content.contains("关闭")) {
             text = "已经为你关闭床头灯";
-            sendEvent(JkDemoFragment.TIAO_GUANG_SWITCH, -100);
-        } else if (controller && (content.contains("床头灯") && content.contains("高"))) {
+            sendDeviceEvent(NetApi.TIAO_GUANG_SWITCH, -100);
+        } else if (content.contains("床头灯") && content.contains("高")) {
             text = "已经为你调高床头灯";
-            sendEvent(JkDemoFragment.TIAO_GUANG_SWITCH, 10);
-        } else if (controller && (content.contains("床头灯") && content.contains("低"))) {
+            sendDeviceEvent(NetApi.TIAO_GUANG_SWITCH, 10);
+        } else if (content.contains("床头灯") && content.contains("低")) {
             text = "已经为你调低床头灯";
-            sendEvent(JkDemoFragment.TIAO_GUANG_SWITCH, -10);
-        } else if (controller && (content.contains("卫生间") && content.contains("打开"))) {
+            sendDeviceEvent(NetApi.TIAO_GUANG_SWITCH, -10);
+        } else if (content.contains("卫生间") && content.contains("打开")) {
             text = "已经为你打开卫生间灯";
-            sendEvent(JkDemoFragment.LEFT_LIGHT, JkDemoFragment.LIGHT_OPEN);
-        } else if (controller && (content.contains("卫生间") && content.contains("关闭"))) {
+            sendDeviceEvent(NetApi.LEFT_LIGHT, NetApi.LIGHT_OPEN);
+        } else if (content.contains("卫生间") && content.contains("关闭")) {
             text = "已经为你关闭卫生间灯";
-            sendEvent(JkDemoFragment.LEFT_LIGHT, JkDemoFragment.LIGHT_CLOSE);
-        } else if (controller && (content.contains("走廊") && content.contains("打开"))) {
+            sendDeviceEvent(NetApi.LEFT_LIGHT, NetApi.LIGHT_CLOSE);
+        } else if (content.contains("走廊") && content.contains("打开")) {
             text = "已经为你打开走廊灯";
-            sendEvent(JkDemoFragment.RIGHT_LIGHT, JkDemoFragment.LIGHT_OPEN);
-        } else if (controller && (content.contains("走廊") && content.contains("关闭"))) {
+            sendDeviceEvent(NetApi.RIGHT_LIGHT, NetApi.LIGHT_OPEN);
+        } else if (content.contains("走廊") && content.contains("关闭")) {
             text = "已经为你关闭走廊灯";
-            sendEvent(JkDemoFragment.RIGHT_LIGHT, JkDemoFragment.LIGHT_CLOSE);
-        } else if (controller && (content.contains("插座") && content.contains("打开"))) {
+            sendDeviceEvent(NetApi.RIGHT_LIGHT, NetApi.LIGHT_CLOSE);
+        } else if (content.contains("插座") && content.contains("打开")) {
             text = "已经为你打开插座";
-            sendEvent(JkDemoFragment.BORD, JkDemoFragment.SWITCH_OPEN);
-        } else if (controller && (content.contains("插座") && content.contains("关闭"))) {
+            sendDeviceEvent(NetApi.BORD, NetApi.SWITCH_OPEN);
+        } else if (content.contains("插座") && content.contains("关闭")) {
             text = "已经为你关闭插座";
-            sendEvent(JkDemoFragment.BORD, JkDemoFragment.SWITCH_CLOSE);
-        } else if (controller && content.contains("退出") && content.contains("控制")) {
+            sendDeviceEvent(NetApi.BORD, NetApi.SWITCH_CLOSE);
+        } else if (content.contains("打开所有灯")) {
+            text = "已经为你打开所有灯";
+            sendDeviceEvent(NetApi.TIAO_GUANG_SWITCH, 100);
+            sendDeviceEvent(NetApi.LEFT_LIGHT, NetApi.LIGHT_OPEN);
+            sendDeviceEvent(NetApi.RIGHT_LIGHT, NetApi.LIGHT_OPEN);
+        } else if (content.contains("退出") && content.contains("控制")) {
             text = "已经退出控制中心";
             chooseFragment(Constant.FRAGMENT_MAIN);
         } else if (content.contains("退出") || content.contains("返回")
                 || content.contains("cancel") || content.contains("back")) {
-            controller = false;
             checkOut = false;
             text = getString(R.string.answer_okay);
             chooseFragment(Constant.FRAGMENT_MAIN);
         } else {
-            if (checkOut || controller) {
+            if (checkOut) {
                 text = getString(R.string.answer_error);
             } else {
                 text = getString(R.string.answer_error);
@@ -273,7 +274,18 @@ public class MainActivity extends MyBaseActivity{
         lottieAnimationView.cancelAnimation();
     }
 
-    private void sendEvent(int device, int state) {
+    private void sendDeviceEvent(int device, int state) {
+        if (device == NetApi.TIAO_GUANG_SWITCH) {
+            int tempState = NetApi.INSTANCE.getTiaoGuangSwitch() + state;
+            if (tempState >= 100) {
+                tempState = 100;
+            } else if (tempState <= 0) {
+                tempState = 0;
+            }
+            NetApi.INSTANCE.setTiaoGuangSwitch(tempState);
+            state = tempState;
+        }
+        NetApi.INSTANCE.changeStatus(device, state);
         EventBus.getDefault().post(new DeviceEvent(device, state));
     }
 
@@ -403,7 +415,7 @@ public class MainActivity extends MyBaseActivity{
 
             @Override
             public void onTick(long millisUntilFinished) {
-//                Log.e(TAG, "millisUntilFinished " + millisUntilFinished);
+                //                Log.e(TAG, "millisUntilFinished " + millisUntilFinished);
                 if (millisUntilFinished / 1000 < 1) {
                     chooseFragment(Constant.FRAGMENT_MAIN);
                 }

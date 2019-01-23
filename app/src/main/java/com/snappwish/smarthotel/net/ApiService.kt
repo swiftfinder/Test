@@ -1,6 +1,7 @@
 package com.snappwish.smarthotel.net
 
 import io.reactivex.Observable
+import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.QueryMap
 
@@ -17,6 +18,6 @@ interface ApiService {
     fun login(): Observable<LoginResponse>
 
     @GET("/device")
-    fun changeStatus(@QueryMap map: Map<String, Int>): Observable<ChangeStatusResponse>
+    fun changeStatus(@QueryMap map: Map<String, Int>): Call<ChangeStatusResponse>
 
 }

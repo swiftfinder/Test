@@ -103,9 +103,6 @@ public abstract class MyBaseActivity extends BaseActivity {
                 EventBus.getDefault().register(this);
             }
         }
-        initSdk();
-        sdkRun();
-        initListener();
     }
 
     @Override
