@@ -244,7 +244,7 @@ public class MainActivity extends MyBaseActivity {
         } else if (content.contains("插座") && content.contains("关闭")) {
             text = "已经为你关闭插座";
             sendDeviceEvent(NetApi.BORD, NetApi.SWITCH_CLOSE);
-        } else if (content.contains("打开所有灯")) {
+        } else if (content.contains("打开") && content.contains("所有") && content.contains("灯")) {
             text = "已经为你打开所有灯";
             sendDeviceEvent(NetApi.TIAO_GUANG_SWITCH, 100);
             sendDeviceEvent(NetApi.LEFT_LIGHT, NetApi.LIGHT_OPEN);
