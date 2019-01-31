@@ -21,8 +21,6 @@ import com.snappwish.smarthotel.bean.WeatherBean;
 import com.snappwish.smarthotel.net.NetApi;
 import com.snappwish.smarthotel.util.Utils;
 
-import org.greenrobot.eventbus.EventBus;
-
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -240,10 +238,10 @@ public class MainActivity extends MyBaseActivity {
             sendDeviceEvent(NetApi.RIGHT_LIGHT, NetApi.LIGHT_CLOSE);
         } else if (content.contains("插座") && content.contains("打开")) {
             text = "已经为你打开插座";
-            sendDeviceEvent(NetApi.BORD, NetApi.SWITCH_OPEN);
+            sendDeviceEvent(NetApi.BORD, NetApi.BORD_OPEN);
         } else if (content.contains("插座") && content.contains("关闭")) {
             text = "已经为你关闭插座";
-            sendDeviceEvent(NetApi.BORD, NetApi.SWITCH_CLOSE);
+            sendDeviceEvent(NetApi.BORD, NetApi.BORD_CLOSE);
         } else if (content.contains("打开") && content.contains("所有") && content.contains("灯")) {
             text = "已经为你打开所有灯";
             sendDeviceEvent(NetApi.TIAO_GUANG_SWITCH, 100);
@@ -286,7 +284,6 @@ public class MainActivity extends MyBaseActivity {
             state = tempState;
         }
         NetApi.INSTANCE.changeStatus(device, state);
-        EventBus.getDefault().post(new DeviceEvent(device, state));
     }
 
     @Override

@@ -1,139 +1,481 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-
-    <!--<Button-->
-        <!--android:id="@+id/btn_login"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_centerHorizontal="true"-->
-        <!--android:text="登录"-->
-        <!--android:textSize="48sp" />-->
+    <ImageView
+        android:id="@+id/iv_back"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="27dp"/>
 
     <LinearLayout
-        android:id="@+id/ll_light"
+        android:id="@+id/ll_temp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/iv_back"
+        android:layout_marginBottom="27dp"
         android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="双控开关:"
-            android:textColor="@color/text_white"
-            android:textSize="48sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="16dp"
-            android:text="客厅灯"
-            android:textColor="@color/text_white" />
-
-        <Button
-            android:id="@+id/btn_l1_open"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="16dp"
-            android:text="开" />
-
-        <Button
-            android:id="@+id/btn_l1_close"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="16dp"
-            android:text="关" />
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="48dp"
-            android:text="卧室灯"
-            android:textColor="@color/text_white" />
-
-        <Button
-            android:id="@+id/btn_l2_open"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="16dp"
-            android:text="开" />
-
-        <Button
-            android:id="@+id/btn_l2_close"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="16dp"
-            android:text="关" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/ll_seekbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ll_light"
-        android:layout_marginTop="32dp"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:layout_below="@id/ll_temp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="亮度："
-            android:textColor="@color/text_white"
-            android:textSize="48sp" />
+        <LinearLayout
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="29dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-        <SeekBar
-            android:id="@+id/seek_bar"
-            style="@android:style/Widget.Holo.SeekBar"
-            android:layout_width="600dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="16dp"
-            android:padding="16dp" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="24dp"
+                android:layout_weight="1"
+                android:background="@drawable/shape_jk_bg">
 
-    </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/ll_bedside_lamp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginRight="50dp"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/iv_bedside_lamp"
+                        android:layout_width="52dp"
+                        android:layout_height="65dp"
+                        android:layout_marginTop="25dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/icon_bedside_lamp_close"/>
+
+                    <TextView
+                        android:id="@+id/tv_bedside_lamp"
+                        style="@style/jk_text_title"
+                        android:layout_marginTop="23dp"
+                        android:text="床头灯"/>
+
+                    <TextView
+                        android:id="@+id/tv_bedside_lamp_status"
+                        style="@style/jk_text_status"
+                        android:layout_marginTop="16dp"
+                        android:text="100%"/>
+
+                </LinearLayout>
+
+                <com.kyleduo.switchbutton.SwitchButton
+                    android:id="@+id/sb_bedside_lamp"
+                    style="@style/jk_switch"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="25dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="20dp"
+                    android:layout_toRightOf="@id/ll_bedside_lamp"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:layout_marginRight="10dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/icon_seek_subtract"/>
+
+                    <SeekBar
+                        android:id="@+id/seek_bar"
+                        style="@android:style/Widget.Holo.SeekBar"
+                        android:layout_width="1dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="16dp"
+                        android:layout_weight="1"
+                        android:padding="16dp"/>
+
+                    <ImageView
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="20dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/icon_seek_plus"/>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="29dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_jk_bg"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/iv_toilet_light"
+                        style="@style/jk_imageview"
+                        android:src="@drawable/icon_toilet_light_close"/>
+
+                    <TextView
+                        android:id="@+id/tv_toilet_light"
+                        style="@style/jk_text_title"
+                        android:text="卫生间"/>
+
+                    <TextView
+                        android:id="@+id/tv_toilet_light_status"
+                        style="@style/jk_text_status"
+                        android:text="关闭"/>
+
+                    <com.kyleduo.switchbutton.SwitchButton
+                        android:id="@+id/sb_toilet_light"
+                        style="@style/jk_switch"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_jk_bg"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/iv_porch_light"
+                        style="@style/jk_imageview"
+                        android:src="@drawable/icon_porch_light_close"/>
+
+                    <TextView
+                        android:id="@+id/tv_porch_light"
+                        style="@style/jk_text_title"
+                        android:text="走廊"/>
+
+                    <TextView
+                        android:id="@+id/tv_porch_light_status"
+                        style="@style/jk_text_status"
+                        android:text="关闭"/>
+
+                    <com.kyleduo.switchbutton.SwitchButton
+                        android:id="@+id/sb_porch_light"
+                        style="@style/jk_switch"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="290dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="29dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="24dp"
+                android:layout_weight="1"
+                android:background="@drawable/shape_jk_bg"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/iv_king_light"
+                    style="@style/jk_imageview"
+                    android:src="@drawable/icon_king_light_close"/>
+
+                <TextView
+                    android:id="@+id/tv_king_light"
+                    style="@style/jk_text_title"
+                    android:text="主灯"/>
+
+                <TextView
+                    android:id="@+id/tv_king_light_status"
+                    style="@style/jk_text_status"
+                    android:text="关闭"/>
+
+                <com.kyleduo.switchbutton.SwitchButton
+                    android:id="@+id/sb_king_light"
+                    style="@style/jk_switch"/>
+                <!--<com.suke.widget.SwitchButton-->
+                <!--android:id="@+id/sb_king_light"-->
+                <!--style="@style/jk_switch"/>-->
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                android:background="@drawable/shape_jk_bg"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/iv_bord"
+                    style="@style/jk_imageview"
+                    android:src="@drawable/icon_bord_close"/>
+
+                <TextView
+                    android:id="@+id/tv_bord"
+                    style="@style/jk_text_title"
+                    android:text="插座"/>
+
+                <TextView
+                    android:id="@+id/tv_bord_status"
+                    style="@style/jk_text_status"
+                    android:text="关闭"/>
+
+                <com.kyleduo.switchbutton.SwitchButton
+                    android:id="@+id/sb_bord"
+                    style="@style/jk_switch"/>
+                <!--<com.suke.widget.SwitchButton-->
+                    <!--android:id="@+id/sb_bord"-->
+                    <!--style="@style/jk_switch"/>-->
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="290dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/shape_jk_bg">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="21dp"
+                android:text="室温：25℃"
+                android:textColor="@color/text_grey3"
+                android:textSize="16sp"/>
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ll_seekbar"
-        android:layout_marginTop="32dp"
-        android:orientation="horizontal">
+            <com.kyleduo.switchbutton.SwitchButton
+                android:id="@+id/sb_air_conditioner"
+                style="@style/jk_switch"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="21dp"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:text="开关:"
-            android:textColor="@color/text_white"
-            android:textSize="48sp" />
+            <ImageView
+                android:id="@+id/iv_air_conditioner"
+                style="@style/jk_imageview"
+                android:layout_width="101dp"
+                android:layout_height="55dp"
+                android:layout_below="@id/sb_air_conditioner"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="27dp"
+                android:src="@drawable/icon_air_conditioner_close"/>
 
-        <Button
-            android:id="@+id/btn_switch_open"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="16dp"
-            android:text="开" />
+            <TextView
+                android:id="@+id/tv_air_conditioner"
+                style="@style/jk_text_title"
+                android:layout_below="@id/iv_air_conditioner"
+                android:layout_centerHorizontal="true"
+                android:text="空调"/>
 
-        <Button
-            android:id="@+id/btn_switch_close"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="16dp"
-            android:text="关" />
+            <TextView
+                android:id="@+id/tv_air_conditioner_status"
+                style="@style/jk_text_status"
+                android:layout_below="@id/tv_air_conditioner"
+                android:layout_centerHorizontal="true"
+                android:text="关闭"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/tv_air_conditioner_status"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="14dp">
+
+                <RelativeLayout
+                    android:id="@+id/rl_temperature"
+                    android:layout_width="45dp"
+                    android:layout_height="103dp"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/shape_jk_temp">
+
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="12dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/icon_seek_plus"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="温度"
+                        android:textColor="@color/text_grey4"
+                        android:textSize="13sp"/>
+
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="12dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/icon_seek_subtract"/>
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_refrigeration"
+                    style="@style/ll_jk_air_conditioner"
+                    android:layout_marginRight="32dp"
+                    android:layout_toLeftOf="@id/rl_temperature">
+
+                    <ImageView
+                        android:id="@+id/iv_refrigeration"
+                        style="@style/iv_jk_air_conditioner"
+                        android:src="@drawable/icon_refrigeration_close"/>
+
+                    <TextView
+                        android:id="@+id/tv_refrigeration"
+                        style="@style/tv_jk_air_conditioner"
+                        android:text="制冷"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/ll_jk_air_conditioner"
+                    android:layout_alignBottom="@id/rl_temperature"
+                    android:layout_marginRight="32dp"
+                    android:layout_toLeftOf="@id/rl_temperature">
+
+                    <ImageView
+                        android:id="@+id/iv_heating"
+                        style="@style/iv_jk_air_conditioner"
+                        android:layout_height="25dp" android:src="@drawable/icon_heating_close"/>
+
+                    <TextView
+                        android:id="@+id/tv_heating"
+                        style="@style/tv_jk_air_conditioner"
+                        android:text="制热"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_timing"
+                    style="@style/ll_jk_air_conditioner"
+                    android:layout_marginLeft="32dp"
+                    android:layout_toRightOf="@id/rl_temperature">
+
+                    <ImageView
+                        android:id="@+id/iv_timing"
+                        style="@style/iv_jk_air_conditioner"
+                        android:src="@drawable/icon_timing_close"/>
+
+                    <TextView
+                        android:id="@+id/tv_timing"
+                        style="@style/tv_jk_air_conditioner"
+                        android:text="定时"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/ll_jk_air_conditioner"
+                    android:layout_alignBottom="@id/rl_temperature"
+                    android:layout_marginLeft="32dp"
+                    android:layout_toRightOf="@id/rl_temperature">
+
+                    <ImageView
+                        android:id="@+id/iv_auto"
+                        style="@style/iv_jk_air_conditioner"
+                        android:src="@drawable/icon_heating_close"/>
+
+                    <TextView
+                        android:id="@+id/tv_auto"
+                        style="@style/tv_jk_air_conditioner"
+                        android:text="自动"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_wind_mid"
+                    style="@style/ll_jk_air_conditioner"
+                    android:layout_below="@id/rl_temperature"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp">
+
+                    <ImageView
+                        android:id="@+id/iv_wind_mid"
+                        style="@style/iv_jk_air_conditioner"
+                        android:src="@drawable/icon_wind_mid_close"/>
+
+                    <TextView
+                        android:id="@+id/tv_wind_mid"
+                        style="@style/tv_jk_air_conditioner"
+                        android:text="中"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/ll_jk_air_conditioner"
+                    android:layout_alignLeft="@id/ll_refrigeration"
+                    android:layout_below="@id/rl_temperature"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp">
+
+                    <ImageView
+                        android:id="@+id/iv_wind_small"
+                        style="@style/iv_jk_air_conditioner"
+                        android:src="@drawable/icon_wind_small_close"/>
+
+                    <TextView
+                        android:id="@+id/tv_wind_small"
+                        style="@style/tv_jk_air_conditioner"
+                        android:text="小"/>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    style="@style/ll_jk_air_conditioner"
+                    android:layout_alignRight="@id/ll_timing"
+                    android:layout_below="@id/rl_temperature"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp">
+
+                    <ImageView
+                        android:id="@+id/iv_wind_big"
+                        style="@style/iv_jk_air_conditioner"
+                        android:src="@drawable/icon_wind_big_close"/>
+
+                    <TextView
+                        android:id="@+id/tv_wind_big"
+                        style="@style/tv_jk_air_conditioner"
+                        android:text="大"/>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+
+        </RelativeLayout>
 
     </LinearLayout>
 

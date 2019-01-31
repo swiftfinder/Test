@@ -6,6 +6,11 @@
 
     <color name="bg_common_window">#ffffff</color>
     <color name="bg_checkout">#805e6c97</color>
+    <color name="bg_jk_solid">#14265a</color>
+    <color name="bg_jk_stroke">#334da2</color>
+    <color name="bg_grey1">#7d8ec0</color>
+    <color name="bg_grey2">#2e427c</color>
+    <color name="bg_green">#4ec450</color>
 
     <color name="text_orange">#ee7326</color>
     <color name="text_white">#ffffff</color>
@@ -13,5 +18,8 @@
     <color name="text_blue2">#7bdeff</color>
     <color name="text_grey">#efefef</color>
     <color name="text_grey2">#7381b1</color>
+    <color name="text_grey3">#8091c4</color>
+    <color name="text_grey4">#14265a</color>
+    <color name="text_green">#4ec450</color>
 
 </resources>

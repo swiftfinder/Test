@@ -1,6 +1,8 @@
 package com.snappwish.smarthotel.net
 
 import android.util.Log
+import com.snappwish.smarthotel.DeviceEvent
+import org.greenrobot.eventbus.EventBus
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
@@ -25,16 +27,16 @@ class UpdateLocationExecutor private constructor() {
             val map = hashMapOf("deviceNum" to deviceNum, "state" to state)
             val changeStatusResponseCall = HttpApiHelper.apiService.changeStatus(map)
             val body = changeStatusResponseCall.execute().body()
-            if (body != null) {
-                Log.d("NetApi", "changeStatus: deviceNum ->$deviceNum state ->$state")
-                Log.d("NetApi", body.toString())
+            Log.d("NetApi", "changeStatus: deviceNum ->$deviceNum state ->$state")
+            Log.d("NetApi", body.toString())
+            if (body != null && body.status == "0") {
+                EventBus.getDefault().post(DeviceEvent(deviceNum, state))
                 sleep(300)
             }
         }
     }
 
     companion object {
-
         val instance = UpdateLocationExecutor()
     }
 }

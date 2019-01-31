@@ -30,8 +30,8 @@ object NetApi {
     const val BORD: Int = 3
     const val LIGHT_OPEN = 1
     const val LIGHT_CLOSE = 0
-    const val SWITCH_OPEN = 1
-    const val SWITCH_CLOSE = 2
+    const val BORD_OPEN = 1
+    const val BORD_CLOSE = 2
 
     var tiaoGuangSwitch: Int = 50
         get() = field

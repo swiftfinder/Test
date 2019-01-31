@@ -23,5 +23,66 @@
     <style name="CustomNoActionBarTheme.drawerArrowStyle" parent="Base.Widget.AppCompat.DrawerArrowToggle">
         <item name="android:color">#000000</item>
     </style>
+    <style name="jk_imageview">
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">54dp</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:layout_marginTop">20dp</item>
+    </style>
+    <style name="jk_text_title">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">15dp</item>
+        <item name="android:textColor">@color/text_grey3</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+    <style name="jk_text_status">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:textColor">@color/text_grey3</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+    <!--<style name="jk_switc2">-->
+        <!--<item name="android:layout_width">wrap_content</item>-->
+        <!--<item name="android:layout_height">wrap_content</item>-->
+        <!--<item name="android:layout_marginTop">10dp</item>-->
+        <!--<item name="sb_background">@color/bg_grey2</item>-->
+        <!--<item name="sb_checked_color">@color/bg_green</item>-->
+        <!--<item name="sb_shadow_effect">false</item>-->
+        <!--<item name="sb_show_indicator">false</item>-->
+        <!--<item name="sb_uncheck_color">@color/bg_grey2</item>-->
+    <!--</style>-->
+
+    <style name="jk_switch">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="kswBackColor">@drawable/switch_button_color</item>
+        <item name="kswThumbHeight">23dp</item>
+        <item name="kswThumbWidth">23dp</item>
+        <item name="kswThumbColor">@color/bg_common_window</item>
+    </style>
+
+    <style name="iv_jk_air_conditioner">
+        <item name="android:layout_width">29dp</item>
+        <item name="android:layout_height">29dp</item>
+        <item name="android:scaleType">fitCenter</item>
+    </style>
+
+    <style name="tv_jk_air_conditioner">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:textColor">@color/text_grey3</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="ll_jk_air_conditioner">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:orientation">vertical</item>
+    </style>
 
 </resources>

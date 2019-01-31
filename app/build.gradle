@@ -124,7 +124,10 @@ dependencies {
 
     implementation 'com.airbnb.android:lottie:2.5.1'
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-
+    compile 'com.android.support:multidex:1.0.3'
+    implementation 'com.kyleduo.switchbutton:library:2.0.0'
+//    compile 'com.github.zcweng:switch-button:0.0.3@aar'
+//    compile 'ch.ielse:switchbutton:1.0.1'
     // 百度url音频播放器
     compile name: 'bdplayer-release', ext: 'aar'
     def jacksonVersion = '2.9.1'
@@ -132,5 +135,4 @@ dependencies {
     compile "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
     compile "com.fasterxml.jackson.core:jackson-annotations:${jacksonVersion}"
 
-    compile 'com.android.support:multidex:1.0.3'
 }
