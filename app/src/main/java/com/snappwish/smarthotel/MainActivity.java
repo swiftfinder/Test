@@ -220,10 +220,10 @@ public class MainActivity extends MyBaseActivity {
             sendDeviceEvent(NetApi.TIAO_GUANG_SWITCH, -100);
         } else if (content.contains("床头灯") && content.contains("高")) {
             text = "已经为你调高床头灯";
-            sendDeviceEvent(NetApi.TIAO_GUANG_SWITCH, 10);
+            sendDeviceEvent(NetApi.TIAO_GUANG_SWITCH, 30);
         } else if (content.contains("床头灯") && content.contains("低")) {
             text = "已经为你调低床头灯";
-            sendDeviceEvent(NetApi.TIAO_GUANG_SWITCH, -10);
+            sendDeviceEvent(NetApi.TIAO_GUANG_SWITCH, -30);
         } else if (content.contains("卫生间") && content.contains("打开")) {
             text = "已经为你打开卫生间灯";
             sendDeviceEvent(NetApi.LEFT_LIGHT, NetApi.LIGHT_OPEN);

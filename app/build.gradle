@@ -107,6 +107,8 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation project(':base-core')
 
+    compile 'com.android.support:design:28.+'
+
     // stetho 调试数据库和网络
     compile 'com.facebook.stetho:stetho:1.5.0'
     compile 'com.facebook.stetho:stetho-okhttp3:1.5.0'

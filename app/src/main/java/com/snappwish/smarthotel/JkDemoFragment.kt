@@ -1,5 +1,6 @@
 package com.snappwish.smarthotel
 
+import android.support.design.widget.TabLayout
 import android.widget.CompoundButton
 import android.widget.SeekBar
 import com.snappwish.smarthotel.base.IEventBus
@@ -30,6 +31,32 @@ class JkDemoFragment : MyBaseFragment(), IEventBus {
     }
 
     override fun initView() {
+        tab_controller.addTab(tab_controller.newTab().setText("自定义模式"))
+        tab_controller.addTab(tab_controller.newTab().setText("明亮模式"))
+        tab_controller.addTab(tab_controller.newTab().setText("阅读模式"))
+        tab_controller.addTab(tab_controller.newTab().setText("电视模式"))
+        tab_controller.addTab(tab_controller.newTab().setText("浪漫模式"))
+        tab_controller.addOnTabSelectedListener(object :TabLayout.OnTabSelectedListener {
+            override fun onTabReselected(p0: TabLayout.Tab?) {
+            }
+
+            override fun onTabUnselected(p0: TabLayout.Tab?) {
+            }
+
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                var text = tab!!.text
+                if (text == "自定义模式") {
+
+                }else if (text == "明亮模式") {
+                    NetApi.changeStatus(TIAO_GUANG_SWITCH, 100)
+                    NetApi.changeStatus(LEFT_LIGHT, LIGHT_OPEN)
+                    NetApi.changeStatus(RIGHT_LIGHT, LIGHT_OPEN)
+                    NetApi.changeStatus(BORD, BORD_OPEN)
+                }
+
+            }
+
+        })
         seek_bar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
 
@@ -99,7 +126,7 @@ class JkDemoFragment : MyBaseFragment(), IEventBus {
             TIAO_GUANG_SWITCH -> bedSideStatus(deviceEvent.state)
             LEFT_LIGHT -> toiletStatus(deviceEvent.state != 0)
             RIGHT_LIGHT -> kingStatus(deviceEvent.state != 0)
-            BORD -> bordStatus(deviceEvent.state != 0)
+            BORD -> bordStatus(deviceEvent.state != 2)
         }
     }
 

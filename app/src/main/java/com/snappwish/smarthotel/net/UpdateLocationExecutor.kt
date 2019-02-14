@@ -11,11 +11,7 @@ import java.util.concurrent.Executors
  * description:
  */
 class UpdateLocationExecutor private constructor() {
-    private val pool: ExecutorService
-
-    init {
-        pool = Executors.newSingleThreadExecutor()
-    }
+    private val pool: ExecutorService = Executors.newSingleThreadExecutor()
 
     fun changeDeviceState(deviceNum: Int, state: Int) {
         val myThread = DeviceThread(deviceNum, state)
