@@ -6,7 +6,7 @@ package com.snappwish.smarthotel;
  */
 
 public class Constant {
-//
+
     public static final String FRAGMENT_WELCOME = "fragment_welcome";
     public static final String FRAGMENT_MAIN = "fragment_main";
     public static final String FRAGMENT_MEAL = "fragment_meal";
